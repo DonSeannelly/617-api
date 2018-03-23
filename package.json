@@ -5,10 +5,11 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node_modules/.bin/run-p *:server",
+    "build": "node_modules/.bin/gulp tsc",
     "doc": "node_modules/.bin/gulp typedoc",
     "dev:server": "node_modules/.bin/gulp start",
     "json:server": "node_modules/.bin/json-server --watch assets/data.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build && node_modules/.bin/jest ./dist"
   },
   "repository": {
     "type": "git",
@@ -38,14 +39,29 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
+    "@types/jest": "^22.2.2",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
+    "gulp-shell": "^0.6.5",
     "gulp-typedoc": "^2.2.0",
     "gulp-typescript": "^3.2.4",
-    "gulp-shell": "^0.6.5",
+    "jest": "^22.4.3",
     "nodemon": "^1.17.1",
     "npm-run-all": "^4.1.2",
+    "ts-jest": "^22.4.2",
     "typedoc": "^0.7.2",
     "typescript": "^2.6.2"
+  },
+  "jest": {
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(dist)/.*/.*(test).(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ]
   }
 }
