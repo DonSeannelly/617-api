@@ -17,4 +17,4 @@ app.use('/', graphqlHTTP({
   graphiql: !isProd,
 }));
 
-app.listen(4000, () => console.log('API running at localhost:4000/ prod = ', isProd));
+app.listen(process.env.PORT || 4000, () => console.log('API running! prod = ', isProd));
