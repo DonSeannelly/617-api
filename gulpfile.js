@@ -37,8 +37,6 @@ gulp.task('start', ['watch', 'assets'], function () {
 
 gulp.task('run:datastore', shell.task('npm run json:server'));
 
-gulp.task('run:azure', shell.task('npm start'));
-
 gulp.task("typedoc", function() {
     return gulp
         .src(["src/*.ts"])
