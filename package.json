@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "node_modules/.bin/gulp start",
+    "start": "node_modules/.bin/run-p *:server",
     "doc": "node_modules/.bin/gulp typedoc",
+    "dev:server": "node_modules/.bin/gulp start",
     "json:server": "node_modules/.bin/json-server --watch assets/data.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -35,13 +36,15 @@
     "tslint-config-airbnb": "^5.7.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.1",
+    "@types/body-parser": "^1.16.8",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-typedoc": "^2.2.0",
     "gulp-typescript": "^3.2.4",
+    "gulp-shell": "^0.6.5",
+    "nodemon": "^1.17.1",
+    "npm-run-all": "^4.1.2",
     "typedoc": "^0.7.2",
-    "typescript": "^2.6.2",
-    "@types/body-parser": "^1.16.8"
+    "typescript": "^2.6.2"
   }
 }

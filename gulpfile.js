@@ -4,6 +4,7 @@ const ts = require('gulp-typescript');
 const exec = require('child_process').exec;
 const typedoc = require("gulp-typedoc");
 const package = require('./package.json');
+const shell = require('gulp-shell');
 
 const JSON_FILES = ['package.json', 'src/*.json', 'src/**/*.json'];
 
@@ -33,6 +34,8 @@ gulp.task('start', ['watch', 'assets'], function () {
   , watch: ['./dist']
   })
 });
+
+gulp.task('run:datastore', shell.task('npm run json:server'));
 
 gulp.task("typedoc", function() {
     return gulp
