@@ -1,4 +1,4 @@
-import { DataStore } from "../src/interfaces/DataStore";
+import { DataStore } from "../interfaces/DataStore";
 
 export class MockDataStore implements DataStore {
   getUsers() {
