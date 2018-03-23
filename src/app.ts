@@ -3,14 +3,18 @@ var graphqlHTTP = require('express-graphql');
 
 import { SchemaBuilder } from "./schema/schema";
 import { JsonStore } from './drivers/json-store';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+const isProd = process.env.NODE_ENV == 'production' ? true : false;
 
 var app = express();
 
 const dataStore = new JsonStore();
 
-app.use('/graphql', graphqlHTTP({
+app.use('/', graphqlHTTP({
   schema: SchemaBuilder.buildSchema(dataStore),
-  graphiql: true,
+  graphiql: !isProd,
 }));
 
-app.listen(4000, () => console.log('Now browse to localhost:4000/graphql'));
+app.listen(4000, () => console.log('API running at localhost:4000/ prod = ', isProd));
