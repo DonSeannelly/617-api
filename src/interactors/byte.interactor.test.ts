@@ -1,5 +1,5 @@
 import { getByte } from './byte.interactor'
-import { MockDataStore } from '../../test/MockDataStore'
+import { MockDataStore } from '../test/MockDataStore'
 
 const mockStore = new MockDataStore()
 
