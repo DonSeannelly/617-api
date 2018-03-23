@@ -10,7 +10,7 @@ const {
   GraphQLNonNull
 } = require('graphql');
 
-const UserType = new GraphQLObjectType({
+export const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: { type: GraphQLString },

@@ -24,4 +24,12 @@ export class JsonStore implements DataStore {
     return axios.delete('http://localhost:3000/users/' + id)
       .then(res => res.data);
   }
+  getByte(id: string) {
+    return axios.get(`http://localhost:3000/bytes/${id}`)
+      .then(res => res.data);
+  }
+  getBytes() {
+    return axios.get(`http://localhost:3000/bytes`)
+      .then(res => res.data);
+  }
 }

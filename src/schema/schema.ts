@@ -10,17 +10,21 @@ const {
 import { UserSchema } from './user.schema';
 // FIXME: get from index
 import { DataStore } from '../interfaces/DataStore';
+import { ByteSchema } from './byte.schema';
 
 export class SchemaBuilder {
 
   public static buildSchema(dataStore: DataStore) {
     const userSchema = new UserSchema(dataStore);
+    const byteSchema = new ByteSchema(dataStore);
 
     const RootQuery = new GraphQLObjectType({
       name: 'RootQueryType',
       fields: {
         user: userSchema.user,
-        users: userSchema.users
+        users: userSchema.users,
+        byte: byteSchema.byte,
+        bytes: byteSchema.bytes
       }
     });
 

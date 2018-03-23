@@ -4,4 +4,6 @@ export interface DataStore {
   addUser(name: string);
   updateUser(id: string, name: string);
   deleteUser(id: string);
+  getByte(id: string);
+  getBytes();
 }
