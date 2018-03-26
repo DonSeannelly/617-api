@@ -32,4 +32,8 @@ export class JsonStore implements DataStore {
     return axios.get(`http://localhost:3000/bytes`)
       .then(res => res.data);
   }
+  getTable(id: string) {
+    return axios.get(`http://localhost:3000/tables/${id}`)
+      .then(res => res.data);
+  }
 }

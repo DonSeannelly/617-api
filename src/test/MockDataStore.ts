@@ -1,6 +1,9 @@
 import { DataStore } from "../interfaces/DataStore";
 
 export class MockDataStore implements DataStore {
+  getTable(id: string) {
+    throw new Error("Method not implemented.");
+  }
   getUsers() {
     throw new Error("Method not implemented.");
   }

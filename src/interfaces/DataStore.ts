@@ -6,4 +6,5 @@ export interface DataStore {
   deleteUser(id: string);
   getByte(id: string);
   getBytes();
+  getTable(id: string);
 }
