@@ -20,13 +20,16 @@
       "description": "Learn how to John Doe.",
       "date": "654344662",
       "creatorId": "1",
+      "materials": {
+        "youtubeVideo": "https://www.youtube.com/embed/0fKg7e37bQE"
+      },
       "sections": [
         {
           "id": "0",
           "name": "Section Uno",
           "description": "This is the first section",
-          "videoIn": "01:22:03",
-          "vidoOut": "01:23:50",
+          "videoIn": "00:05:03",
+          "videoOut": "00:06:50",
           "questions": [
             {
               "text": "Q1",
@@ -78,8 +81,8 @@
           "id": "0",
           "name": "Section Zwei",
           "description": "This is the second section",
-          "videoIn": "01:22:03",
-          "vidoOut": "01:23:50",
+          "videoIn": "00:07:03",
+          "videoOut": "00:08:50",
           "questions": [
             {
               "text": "Q1",
