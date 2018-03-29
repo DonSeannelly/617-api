@@ -16,6 +16,9 @@
       "description": "Learn version control with git and GitHub.",
       "date": "654344662",
       "creatorId": "1",
+      "materials": {
+        "youtubeVideo": "https://www.youtube.com/embed/0fKg7e37bQE"
+      },
       "sections": [
         {
           "id": "0",
