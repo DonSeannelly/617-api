@@ -7,24 +7,20 @@
     {
       "id": "2",
       "name": "Jane Doe"
-    },
-    {
-      "id": "3",
-      "name": "Sean Donnelly"
     }
   ],
   "bytes": [
     {
       "id": "1",
-      "name": "JohnDoeByte",
-      "description": "Learn how to John Doe.",
+      "name": "GitHub Basics",
+      "description": "Learn version control with git and GitHub.",
       "date": "654344662",
       "creatorId": "1",
       "sections": [
         {
           "id": "0",
-          "name": "Section Uno",
-          "description": "This is the first section",
+          "name": "Your First Commit",
+          "description": "Learn how to initialize a repo and commit your changes.",
           "videoIn": "01:22:03",
           "vidoOut": "01:23:50",
           "questions": [
@@ -76,8 +72,8 @@
         },
         {
           "id": "0",
-          "name": "Section Zwei",
-          "description": "This is the second section",
+          "name": "Working with Remotes",
+          "description": "Learn how to manage local and remote repos.",
           "videoIn": "01:22:03",
           "vidoOut": "01:23:50",
           "questions": [
@@ -113,39 +109,6 @@
       "description": "Learn how to Jane Doe.",
       "date": "654344662",
       "creatorId": "2"
-    }
-  ],
-  "tables": [
-    {
-      "id": "0",
-      "ownerId": "1",
-      "meals": [
-        {
-          "id": "0",
-          "name": "Git Background",
-          "dueDate": "2018-05-05T10:00",
-          "byteIds": [
-            "1", "2"
-          ]
-        }
-      ],
-      "invitations": [
-        {
-          "userId": "3",
-          "dateSent": "2018-03-05"
-        }
-      ],
-      "members": [
-        {
-          "userId": "2",
-          "mealsCompleted": [
-            { 
-              "mealId": "0",
-              "dateCompleted": "2018-03-25T14:00"
-            }
-          ]
-        }
-      ]
     }
   ]
 }
