@@ -9,8 +9,8 @@ export async function createTable(dataStore: DataStore, name: string, hostId: st
 
 export async function getTable(dataStore: DataStore, id: string) {
   const table = await dataStore.getTable(id);
-  const owner = await getUser({dataStore, id: table.ownerId});
-  delete table.ownerId;
+  const owner = await getUser({dataStore, id: table.hostId});
+  delete table.hostId;
 
   const resolvedMembers = table.members.map(async member => {
     let resolvedUser = await getUser({ dataStore, id: member.userId });

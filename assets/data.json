@@ -2,7 +2,8 @@
   "users": [
     {
       "id": "1",
-      "name": "John Doe"
+      "name": "John Doe",
+      "email": "john@gmail.com"
     },
     {
       "id": "2",
@@ -23,7 +24,8 @@
         {
           "id": "0",
           "name": "Your First Commit",
-          "description": "Learn how to initialize a repo and commit your changes.",
+          "description":
+            "Learn how to initialize a repo and commit your changes.",
           "videoIn": "01:22:03",
           "vidoOut": "01:23:50",
           "questions": [
@@ -112,6 +114,14 @@
       "description": "Learn how to Jane Doe.",
       "date": "654344662",
       "creatorId": "2"
+    }
+  ],
+  "tables": [
+    {
+      "id": 1,
+      "name": "Table 1",
+      "invites": [
+      ]
     }
   ]
 }

@@ -3,6 +3,9 @@ const axios = require('axios');
 // import * as axios from "axios"; Why doesn't this work?
 
 export class JsonStore implements DataStore {
+  joinTable(tableId: string, userId: string) {
+    throw new Error("Method not implemented.");
+  }
   getUsers() {
     return axios.get(`http://localhost:3000/users`)
       .then(res => res.data);

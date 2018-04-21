@@ -36,11 +36,13 @@
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.1",
     "json-server": "^0.12.1",
+    "mongodb": "^3.0.7",
     "tslint-config-airbnb": "^5.7.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
     "@types/jest": "^22.2.2",
+    "@types/mongodb": "^3.0.15",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-shell": "^0.6.5",

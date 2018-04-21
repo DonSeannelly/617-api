@@ -1,7 +1,20 @@
 import { DataStore } from "../interfaces/DataStore";
 
 export class MockDataStore implements DataStore {
-  getTable(id: string) {
+
+  getUserByEmail(email: string) {
+    throw new Error("Method not implemented.");
+  }
+  getTable(id: string): { ownerId: string; members: any; invitations: any; } {
+    throw new Error("Method not implemented.");
+  }
+  createTable(name: string, hostId: string): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+  inviteUserToTable(tableId: string, email: string): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+  joinTable(tableId: string, userId: string) {
     throw new Error("Method not implemented.");
   }
   getUsers() {
