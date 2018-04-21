@@ -36,7 +36,10 @@ export class SchemaBuilder {
       fields: {
         addUser: userSchema.addUser,
         deleteUser: userSchema.deleteUser,
-        updateUser: userSchema.updateUser
+        updateUser: userSchema.updateUser,
+        inviteUser: tableSchema.inviteUser,
+        createTable: tableSchema.createTable,
+        joinTable: tableSchema.joinTable
       }
     });
 

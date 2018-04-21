@@ -3,8 +3,12 @@ import { DataStore } from "../interfaces/DataStore";
 export function getUsers(dataStore: DataStore) {
   return dataStore.getUsers();
 }
-export function getUser(dataStore: DataStore, id: string) {
-  return dataStore.getUser(id);
+export function getUser({ dataStore, id, email }: { dataStore: DataStore, id?: string, email?: string }) {
+  if (id) {
+    return dataStore.getUserByID(id);
+  } else if (email) {
+    return dataStore.getUserByEmail(email);
+  }
 }
 export function addUser(dataStore: DataStore, name: string) {
   return dataStore.addUser(name);
