@@ -7,7 +7,7 @@ export class MockDataStore implements DataStore {
   getUsers() {
     throw new Error("Method not implemented.");
   }
-  getUser(id: string) {
+  getUserByID(id: string) {
     return {
       "id": "1",
       "name": "John Doe"

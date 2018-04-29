@@ -7,8 +7,12 @@ export class JsonStore implements DataStore {
     return axios.get(`http://localhost:3000/users`)
       .then(res => res.data);
   }
-  getUser(id: string) {
-    return axios.get(`http://localhost:3000/users/${id}`)
+  getUserByID(id: string) {
+    return axios.get(`http://localhost:3000/users?id=${id}`)
+      .then(res => res.data);
+  }
+  getUserByEmail(email: string) {
+    return axios.get(`http://localhost:3000/users?email=${email}`)
       .then(res => res.data);
   }
   addUser(name: string) {
@@ -35,5 +39,16 @@ export class JsonStore implements DataStore {
   getTable(id: string) {
     return axios.get(`http://localhost:3000/tables/${id}`)
       .then(res => res.data);
+  }
+  inviteUserToTable(tableId: string, email: string): Promise<void> {
+    return axios.post(`http://localhost:3000/tables/${tableId}/invites`, {
+      // TODO: Add id generation
+      email,
+      dateSent: Date.now()
+    })
+      .then(res => res.data);
+  }
+  createTable(name: string, hostId: string): Promise<void> {
+    return Promise.resolve();
   }
 }

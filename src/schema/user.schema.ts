@@ -45,7 +45,7 @@ export class UserSchema {
 
     this.addUser = {
       type: UserType,
-        args: {
+      args: {
         name: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, args) {

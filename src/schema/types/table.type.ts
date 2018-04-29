@@ -18,7 +18,7 @@ const InvitationType = new GraphQLObjectType({
   fields: () => ({
     // User props
     id: { type: GraphQLString },
-    name: { type: GraphQLString },
+    email: { type: GraphQLString },
     // Additional Props
     dateSent: { type: GraphQLString }
   })
