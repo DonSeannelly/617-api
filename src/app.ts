@@ -20,7 +20,7 @@ app.use('/api', graphqlHTTP({
 }));
 
 app.post('/auth0/registerUser', (req: Request, res: Response) => {
-  console.log(req.body.json());
+  console.log(req);
   res.sendStatus(200);
 })
 
