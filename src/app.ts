@@ -1,5 +1,6 @@
 var express = require('express');
 var graphqlHTTP = require('express-graphql');
+var bodyParser = require("body-parser");
 
 import { SchemaBuilder } from "./schema/schema";
 import { JsonStore } from './drivers/json-store';
@@ -9,6 +10,9 @@ import { Response, Request } from "express";
 const isProd = process.env.NODE_ENV == 'production' ? true : false;
 
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const dataStore = new JsonStore();
 
@@ -20,7 +24,7 @@ app.use('/api', graphqlHTTP({
 }));
 
 app.post('/auth0/registerUser', (req: Request, res: Response) => {
-  console.log(req);
+  console.log(req.body);
   res.sendStatus(200);
 })
 
