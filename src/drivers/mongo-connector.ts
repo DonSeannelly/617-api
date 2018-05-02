@@ -1,5 +1,5 @@
-import { DataStore } from "../interfaces/DataStore";
-import { MongoClient, Db } from "mongodb";
+import { DataStore } from '../interfaces/DataStore';
+import { MongoClient, Db } from 'mongodb';
 
 export class MongoConnector implements DataStore {
   private db: Db;
@@ -12,7 +12,7 @@ export class MongoConnector implements DataStore {
 
   async connect(dbURI: string): Promise<void> {
     try {
-      this.db = (await MongoClient.connect(dbURI)).db("test-db");
+      this.db = (await MongoClient.connect(dbURI)).db('test-db');
       return Promise.resolve();
     } catch (e) {
       console.log(e);
@@ -21,32 +21,32 @@ export class MongoConnector implements DataStore {
   }
 
   getUsers() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   getUserByID(id: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   getUserByEmail(email: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   addUser(name: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   updateUser(id: string, name: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   deleteUser(id: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   getByte(id: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   getBytes() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   async getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; }> {
     try {
-      const tableDoc = await this.db.collection("tables").findOne({ _id: id });
+      const tableDoc = await this.db.collection('tables').findOne({ _id: id });
       return Promise.resolve(tableDoc);
     } catch(e) {
       return Promise.reject(e);
@@ -55,7 +55,7 @@ export class MongoConnector implements DataStore {
   async createTable(name: string, hostId: string): Promise<void> {
     try {
       const doc = { name, hostId }
-      await this.db.collection("tables").insertOne(doc);
+      await this.db.collection('tables').insertOne(doc);
       // TODO: Check for success before resolve
       return Promise.resolve();
     } catch(e) {
@@ -63,10 +63,10 @@ export class MongoConnector implements DataStore {
     }
   }
   inviteUserToTable(tableId: string, email: string): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   joinTable(tableId: string, userId: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 }
 
