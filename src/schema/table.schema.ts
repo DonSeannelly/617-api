@@ -30,7 +30,12 @@ export class TableSchema {
     }
 
     this.createTable = {
-      type: TableType,
+      type: new GraphQLObjectType({
+        name: 'TableCreationEvent',
+        fields: () => ({
+          id: { type: GraphQLString }
+        })
+      }),
       args: {
         name: { type: GraphQLString },
         hostId: { type: GraphQLString }

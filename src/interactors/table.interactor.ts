@@ -2,9 +2,8 @@ import { DataStore } from "../interfaces/DataStore";
 import { getUser } from "./user.interactor";
 
 export async function createTable(dataStore: DataStore, name: string, hostId: string) {
-  const table = await dataStore.createTable(name, hostId);
-  console.log(table);
-  return { name, hostId }
+  const id = await dataStore.createTable(name, hostId);
+  return { id }
 }
 
 export async function getTable(dataStore: DataStore, id: string) {
@@ -34,8 +33,9 @@ export async function getTable(dataStore: DataStore, id: string) {
 
 export async function inviteUserToTable(dataStore: DataStore, tableId: string, email: string) {
   await dataStore.inviteUserToTable(tableId, email);
-  const invitee = await dataStore.getUserByEmail(email);
-  return { invitee };
+  // const invitee = await dataStore.getUserByEmail(email);
+  return { name: "Sean" }
+  // return { invitee };
 }
 
 export async function joinTable(dataStore: DataStore, tableId: string, userId: string) {
