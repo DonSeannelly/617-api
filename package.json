@@ -4,11 +4,9 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "node_modules/.bin/run-p *:server",
+    "start": "node_modules/.bin/gulp start",
     "build": "node_modules/.bin/gulp tsc",
     "doc": "node_modules/.bin/gulp typedoc",
-    "dev:server": "node_modules/.bin/gulp start",
-    "json:server": "node_modules/.bin/json-server --watch assets/data.json",
     "test": "npm run build && node_modules/.bin/jest ./dist"
   },
   "repository": {
@@ -28,7 +26,6 @@
   },
   "homepage": "https://github.com/nrwinner/617-final#readme",
   "dependencies": {
-    "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
@@ -38,7 +35,6 @@
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
     "graphql": "^0.13.1",
-    "json-server": "^0.12.1",
     "mongodb": "^3.0.7",
     "morgan": "^1.9.0"
   },
