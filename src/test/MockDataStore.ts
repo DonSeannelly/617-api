@@ -2,7 +2,11 @@ import { DataStore } from "../interfaces/DataStore";
 
 export class MockDataStore implements DataStore {
 
-  getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; }> {
+
+  getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; bytes: string[]; }> {
+    throw new Error("Method not implemented.");
+  }
+  verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; }> {
     throw new Error("Method not implemented.");
   }
   createTable(name: string, hostId: string): Promise<string> {
@@ -25,8 +29,9 @@ export class MockDataStore implements DataStore {
   }
   getUserByID(id: string) {
     return {
-      "id": "1",
-      "name": "John Doe"
+      "_id": "1",
+      "firstname": "John",
+      "lastname": "Doe"
     }
   }
   addUser(name: string) {
