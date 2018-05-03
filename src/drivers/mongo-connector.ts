@@ -4,7 +4,8 @@ import { BcryptDriver } from '../drivers';
 import * as dotenv from 'dotenv';
 
 const COLLECTIONS = {
-  USERS: 'users'
+  USERS: 'users',
+  BYTES: 'bytes'
 }
 
 export class MongoConnector implements DataStore {
@@ -83,11 +84,19 @@ export class MongoConnector implements DataStore {
   deleteUser(id: string) {
     throw new Error('Method not implemented.');
   }
-  getByte(id: string) {
-    throw new Error('Method not implemented.');
+  async getByte(id: string) {
+    try {
+      return await this.db.collection(COLLECTIONS.BYTES).findOne({ _id: id });
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
-  getBytes() {
-    throw new Error('Method not implemented.');
+  async getBytes() {
+    try {
+      return await this.db.collection(COLLECTIONS.BYTES).find({}).toArray();
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
   async getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; bytes: string[] }> {
     try {
@@ -131,10 +140,8 @@ export class MongoConnector implements DataStore {
     }
   }
   async verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; }> {
-    console.log(`let's find ${email}`);
     const user = await this.db.collection(COLLECTIONS.USERS).findOne({ email });
     if (user) {
-      console.log('user exists', user);
       const authenticated = await new BcryptDriver(10).verify(password, user.password);
       if (authenticated) {
         return Promise.resolve({ authenticated, firstname: user.firstname, lastname: user.lastname });
@@ -150,7 +157,6 @@ export class MongoConnector implements DataStore {
 interface TableDocument {
   name: string;
   hostId: string;
-  // TODO: 
   meals: any;
   members: any;
   invites: any;
