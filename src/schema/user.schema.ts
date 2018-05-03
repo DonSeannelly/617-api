@@ -1,5 +1,5 @@
 import { DataStore } from "../interfaces/DataStore";
-import { getUser, getUsers, addUser, updateUser, deleteUser } from '../interactors/user.interactor';
+import { getUser, getUsers, updateUser, deleteUser } from '../interactors/user.interactor';
 
 const {
   GraphQLObjectType,
