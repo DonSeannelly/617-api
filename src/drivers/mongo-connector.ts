@@ -1,8 +1,14 @@
 import { DataStore } from "../interfaces/DataStore";
 import { MongoClient, Db, ObjectID } from "mongodb";
+import { BcryptDriver } from '../drivers';
 import * as dotenv from 'dotenv';
 
+const COLLECTIONS = {
+  USERS: 'users'
+}
+
 export class MongoConnector implements DataStore {
+
   private db: Db;
 
   constructor() {
@@ -31,9 +37,34 @@ export class MongoConnector implements DataStore {
   getUserByEmail(email: string) {
     throw new Error('Method not implemented.');
   }
-  addUser(name: string) {
-    throw new Error('Method not implemented.');
+
+  async addUser(firstname: string, lastname: string, email: string, password: string) {
+    const emailInUse = await this.isUser(email);
+    console.log(emailInUse);
+    if (!emailInUse) {
+      try {
+        const userDoc = { _id: (new ObjectID).toString(), firstname, lastname, email , password: await new BcryptDriver(10).hash(password) };
+        const doc = await this.db.collection(COLLECTIONS.USERS).insertOne(userDoc);
+        return Promise.resolve(true);
+      } catch (e) {
+        return Promise.reject(e);
+      }
+    }
   }
+  /**
+   * Checks whether or not the email address is tied to an existing user.
+   * 
+   * @param email the email in question
+   */
+  private async isUser(email: string): Promise<boolean> {
+    try {
+      const doc = await this.db.collection(COLLECTIONS.USERS).findOne({ email })
+      console.log(doc);
+      return Promise.resolve(doc === null ? false : true);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  } 
   updateUser(id: string, name: string) {
     throw new Error('Method not implemented.');
   }
@@ -46,7 +77,7 @@ export class MongoConnector implements DataStore {
   getBytes() {
     throw new Error('Method not implemented.');
   }
-  async getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; }> {
+  async getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; bytes: string[] }> {
     try {
       const tableDoc = await this.db.collection('tables').findOne({ _id: id });
       return Promise.resolve(tableDoc);
@@ -85,6 +116,21 @@ export class MongoConnector implements DataStore {
       return Promise.resolve(result);
     } catch(e) {
       return Promise.reject(e);
+    }
+  }
+  async verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; }> {
+    console.log(`let's find ${email}`);
+    const user = await this.db.collection(COLLECTIONS.USERS).findOne({ email });
+    if (user) {
+      console.log('user exists', user);
+      const authenticated = await new BcryptDriver(10).verify(password, user.password);
+      if (authenticated) {
+        return Promise.resolve({ authenticated, firstname: user.firstname, lastname: user.lastname });
+      } else {
+        return Promise.reject('Invalid credentials');
+      }
+    } else {
+      return Promise.reject('Invalid credentials');
     }
   }
 }
