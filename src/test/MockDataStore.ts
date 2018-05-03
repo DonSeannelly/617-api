@@ -44,7 +44,7 @@ export class MockDataStore implements DataStore {
       "name": "JohnDoeByte",
       "description": "Learn how to John Doe.",
       "date": "654344662",
-      "creatorId": "1",
+      "creatorID": "1",
       "sections": [
         {
           "id": "0",
