@@ -33,7 +33,7 @@ export class UserSchema {
         id: { type: GraphQLString }
       },
       resolve(parentValue, args) {
-        return getUser(dataStore, args.id);
+        return getUser({ dataStore, id: args.id });
       }
     };
 
