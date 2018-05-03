@@ -8,9 +8,9 @@ import {
   GraphQLBoolean
 } from 'graphql';
 import { DataStore } from '../interfaces/DataStore';
-import { TableType } from './types/table.type';
+import { TABLE_TYPE } from './types/table.type';
 import { createTable, getTable, inviteUserToTable, joinTable } from '../interactors/table.interactor';
-import { UserType } from './user.schema';
+import { USER_TYPE } from './user.schema';
 
 export class TableSchema {
   table;
@@ -20,7 +20,7 @@ export class TableSchema {
 
   constructor(private dataStore: DataStore) {
     this.table = {
-      type: TableType,
+      type: TABLE_TYPE,
       args: {
         id: { type: GraphQLString }
       },
@@ -46,7 +46,7 @@ export class TableSchema {
     }
 
     this.inviteUser = {
-      type: UserType,
+      type: USER_TYPE,
       args: {
         tableId: { type: GraphQLString },
         email: { type: GraphQLString }

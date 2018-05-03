@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } from 'graphql'
-import { MultipleChoiceQuestionType } from './multiple-choice-question.type';
+import { MULTIPLE_CHOICE_QUESTION_TYPE } from './multiple-choice-question.type';
 
-export const SectionType = new GraphQLObjectType({
+export const SECTION_TYPE = new GraphQLObjectType({
   name: 'Section',
   fields: () => ({
     id: { type: GraphQLString },
@@ -9,6 +9,6 @@ export const SectionType = new GraphQLObjectType({
     description: { type: GraphQLString },
     videoIn: { type: GraphQLString },
     videoOut: { type: GraphQLString },
-    questions: { type: GraphQLList(MultipleChoiceQuestionType) }
+    questions: { type: GraphQLList(MULTIPLE_CHOICE_QUESTION_TYPE) }
   })
 })

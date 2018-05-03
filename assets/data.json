@@ -3,11 +3,12 @@
     {
       "id": "1",
       "name": "John Doe",
-      "email": "john@gmail.com"
+      "email": "johndoe@gmail.com"
     },
     {
       "id": "2",
-      "name": "Jane Doe"
+      "name": "Jane Doe",
+      "email": "nanedoe@gmail.com"
     }
   ],
   "bytes": [
@@ -24,12 +25,12 @@
         {
           "id": "0",
           "name": "Your First Commit",
-          "description":
-            "Learn how to initialize a repo and commit your changes.",
-          "videoIn": "01:22:03",
-          "vidoOut": "01:23:50",
+          "description": "Learn how to initialize a repo and commit your changes.",
+          "videoIn": "00:05:00",
+          "vidoOut": "00:10:00",
           "questions": [
-            {
+            { 
+              "index":1,
               "text": "Q1",
               "answerId": 0,
               "options": [
@@ -52,6 +53,7 @@
               ]
             },
             {
+              "index":2,
               "text": "Q2",
               "answerId": 3,
               "options": [
@@ -76,11 +78,64 @@
           ]
         },
         {
-          "id": "0",
+          "id": "1",
           "name": "Working with Remotes",
           "description": "Learn how to manage local and remote repos.",
-          "videoIn": "01:22:03",
-          "vidoOut": "01:23:50",
+          "videoIn": "00:10:00",
+          "vidoOut": "01:15:00",
+          "questions": [
+            {
+              "text": "What is the best color?",
+              "answerId": 3,
+              "options": [
+                {
+                  "id": 4,
+                  "text": "Option 1"
+                },
+                {
+                  "id": 5,
+                  "text": "Option 2"
+                },
+                {
+                  "id": 6,
+                  "text": "White, because it's a combination of all colors."
+                },
+                {
+                  "id": 7,
+                  "text": "Black, it's the most dominant."
+                }
+              ]
+            },
+            {
+              "text": "How do you make a table?",
+              "answerId": 1,
+              "options": [
+                {
+                  "id": 8,
+                  "text": "You make a chair, but you don't sit on it"
+                },
+                {
+                  "id": 8,
+                  "text": "Option 2"
+                },
+                {
+                  "id": 10,
+                  "text": "Option 3"
+                },
+                {
+                  "id": 11,
+                  "text": "Option 4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "name": "Branching",
+          "description": "Learn how to effectively branch.",
+          "videoIn": "00:15:00",
+          "vidoOut": "00:18:00",
           "questions": [
             {
               "text": "Q1",

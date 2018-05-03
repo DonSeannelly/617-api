@@ -1,9 +1,10 @@
 import { DataStore } from "../interfaces/DataStore";
 import { getUser } from "./user.interactor";
+import { getByte } from "./byte.interactor";
 
 export async function createTable(dataStore: DataStore, name: string, hostId: string) {
   const id = await dataStore.createTable(name, hostId);
-  return { id }
+  return { id } // return { name, hostId }
 }
 
 export async function getTable(dataStore: DataStore, id: string) {
@@ -23,11 +24,14 @@ export async function getTable(dataStore: DataStore, id: string) {
     return { ...user, ...resolvedUser };
   });
 
+  const resolvedBytes = table.bytes.map(async byteId => await getByte(dataStore, byteId));
+
   return {
     ...table, 
     owner, 
     members: resolvedMembers,
-    invitations: resolvedInvited
+    invitations: resolvedInvited,
+    bytes: resolvedBytes
   }
 }
 

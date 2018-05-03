@@ -1,11 +1,12 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } from 'graphql'
-import { MultipleChoiceOptionType } from './multiple-choice-option.type'
+import { MULTIPLE_CHOICE_OPTION_TYPE } from './multiple-choice-option.type'
 
-export const MultipleChoiceQuestionType = new GraphQLObjectType({
+export const MULTIPLE_CHOICE_QUESTION_TYPE = new GraphQLObjectType({
   name: 'MultipleChoiceQuestion',
   fields: () => ({
+    index: { type: GraphQLInt },
     text: { type: GraphQLString },
-    options: { type: GraphQLList(MultipleChoiceOptionType) },
+    options: { type: GraphQLList(MULTIPLE_CHOICE_OPTION_TYPE) },
     answerId: { type: GraphQLInt }
   })
 })
