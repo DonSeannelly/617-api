@@ -1,17 +1,17 @@
 import { DataStore } from "../interfaces/DataStore";
 
-export function getUsers(dataStore: DataStore) {
-  return dataStore.getUsers();
+export async function getUsers(dataStore: DataStore) {
+  const users = await dataStore.getUsers();
+  return users.map(user => ({ ...user, name: `${user.firstname} ${user.lastname}`, id: user._id }))
 }
-export function getUser({ dataStore, id, email }: { dataStore: DataStore, id?: string, email?: string }) {
+export async function getUser({ dataStore, id, email }: { dataStore: DataStore, id?: string, email?: string }) {
   if (id) {
-    return dataStore.getUserByID(id);
+    const user = await dataStore.getUserByID(id);
+    return { ...user, name: `${user.firstname} ${user.lastname}`, id: user._id };
   } else if (email) {
-    return dataStore.getUserByEmail(email);
+    const user = await dataStore.getUserByEmail(email)
+    return { ...user, name: `${user.firstname} ${user.lastname}`, id: user._id };;
   }
-}
-export function addUser(dataStore: DataStore, name: string) {
-  return dataStore.addUser(name);
 }
 export function updateUser(dataStore: DataStore, id: string, name: string) {
   return dataStore.updateUser(id, name);

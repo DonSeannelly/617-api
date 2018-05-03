@@ -1,5 +1,5 @@
 import { DataStore } from "../interfaces/DataStore";
-import { getUser, getUsers, addUser, updateUser, deleteUser } from '../interactors/user.interactor';
+import { getUser, getUsers, updateUser, deleteUser } from '../interactors/user.interactor';
 
 const {
   GraphQLObjectType,
@@ -25,7 +25,6 @@ export const USER_TYPE = new GraphQLObjectType({
 export class UserSchema {
   user;
   users;
-  addUser;
   deleteUser;
   updateUser;
 
@@ -44,17 +43,6 @@ export class UserSchema {
       type: new GraphQLList(USER_TYPE),
         resolve(parentValue, args) {
         return getUsers(dataStore);
-      }
-    };
-
-    this.addUser = {
-      type: USER_TYPE,
-      args: {
-        name: { type: new GraphQLNonNull(GraphQLString) }
-      },
-      resolve(parentValue, args) {
-        // Call interactor here to handle business logic
-        return addUser(dataStore, args.name);
       }
     };
 
