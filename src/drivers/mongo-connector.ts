@@ -28,14 +28,26 @@ export class MongoConnector implements DataStore {
     }
   }
 
-  getUsers() {
-    throw new Error('Method not implemented.');
+  async getUsers() {
+    try {
+      return await this.db.collection(COLLECTIONS.USERS).find({}).toArray();
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
-  getUserByID(id: string) {
-    throw new Error('Method not implemented.');
+  async getUserByID(id: string) {
+    try {
+      return await this.db.collection(COLLECTIONS.USERS).findOne({ _id: id });
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
-  getUserByEmail(email: string) {
-    throw new Error('Method not implemented.');
+  async getUserByEmail(email: string) {
+    try {
+      return await this.db.collection(COLLECTIONS.USERS).findOne({ email });
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 
   async addUser(firstname: string, lastname: string, email: string, password: string) {

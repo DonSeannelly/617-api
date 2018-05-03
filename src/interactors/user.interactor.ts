@@ -10,9 +10,6 @@ export function getUser({ dataStore, id, email }: { dataStore: DataStore, id?: s
     return dataStore.getUserByEmail(email);
   }
 }
-export function addUser(dataStore: DataStore, name: string) {
-  return dataStore.addUser(name);
-}
 export function updateUser(dataStore: DataStore, id: string, name: string) {
   return dataStore.updateUser(id, name);
 }

@@ -34,7 +34,6 @@ export class SchemaBuilder {
     const mutation = new GraphQLObjectType({
       name: 'Mutation',
       fields: {
-        addUser: userSchema.addUser,
         deleteUser: userSchema.deleteUser,
         updateUser: userSchema.updateUser,
         inviteUser: tableSchema.inviteUser,
