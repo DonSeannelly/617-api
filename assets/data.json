@@ -3,12 +3,18 @@
     {
       "id": "1",
       "name": "John Doe",
-      "email": "johndoe@gmail.com"
+      "firstname":"John",
+      "lastname":"Doe",
+      "email": "johndoe@gmail.com",
+      "profilePicture":"johndoe.jpg"
     },
     {
       "id": "2",
       "name": "Jane Doe",
-      "email": "nanedoe@gmail.com"
+      "firstname":"Jane",
+      "lastname":"Doe",
+      "email": "nanedoe@gmail.com",
+      "profilePicture":"janedoe.jpg"
     }
   ],
   "bytes": [
