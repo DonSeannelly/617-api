@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } from 'graphql'
-import { MaterialsType } from './materials.type'
-import { UserType } from '../user.schema'
-import { SectionType } from './section.type';
+import { MATERIALS_TYPE } from './materials.type'
+import { USER_TYPE } from '../user.schema'
+import { SECTION_TYPE } from './section.type';
 
 export const ByteType = new GraphQLObjectType({
   name: 'Byte',
@@ -10,8 +10,8 @@ export const ByteType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     date: { type: GraphQLInt },
-    creator: { type: UserType },
-    materials: { type: MaterialsType },
-    sections: { type: GraphQLList(SectionType) }
+    creator: { type: USER_TYPE },
+    materials: { type: MATERIALS_TYPE },
+    sections: { type: GraphQLList(SECTION_TYPE) }
   })
 })

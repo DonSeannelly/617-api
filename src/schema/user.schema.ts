@@ -10,7 +10,7 @@ const {
   GraphQLNonNull
 } = require('graphql');
 
-export const UserType = new GraphQLObjectType({
+export const USER_TYPE = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: { type: GraphQLString },
@@ -27,7 +27,7 @@ export class UserSchema {
 
   constructor(private dataStore: DataStore) {
     this.user = {
-      type: UserType,
+      type: USER_TYPE,
         args: {
         id: { type: GraphQLString }
       },
@@ -37,14 +37,14 @@ export class UserSchema {
     };
 
     this.users = {
-      type: new GraphQLList(UserType),
+      type: new GraphQLList(USER_TYPE),
         resolve(parentValue, args) {
         return getUsers(dataStore);
       }
     };
 
     this.addUser = {
-      type: UserType,
+      type: USER_TYPE,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) }
       },
@@ -55,7 +55,7 @@ export class UserSchema {
     };
 
     this.deleteUser = {
-      type: UserType,
+      type: USER_TYPE,
         args: {
         id: { type: new GraphQLNonNull(GraphQLString) }
       },
@@ -66,7 +66,7 @@ export class UserSchema {
     };
 
     this.updateUser = {
-      type: UserType,
+      type: USER_TYPE,
         args: {
         id: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: GraphQLString }

@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString } from 'graphql'
 
-export const MultipleChoiceOptionType = new GraphQLObjectType({
+export const MULTIPLE_CHOICE_OPTION_TYPE = new GraphQLObjectType({
   name: 'MultipleChoiceOption',
   fields: () => ({
     id: { type: GraphQLInt },
