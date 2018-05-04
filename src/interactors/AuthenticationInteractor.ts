@@ -26,7 +26,7 @@ export async function login(
 
     if (authenticated) {
       const token = generateToken({ firstname, lastname, email });
-      responder.setCookie('presence', token);
+      responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email });
     } else {
       responder.invalidLogin();
     }
@@ -63,7 +63,7 @@ export async function register(
     if (isValidEmail(email)) {
       if (await datastore.addUser(firstname, lastname, email, password)) {
         const token = generateToken({ firstname, lastname, email });
-        responder.setCookie('presence', token);
+        responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email });
       } else {
         responder.sendOperationError('Email address in use', 400);
       }

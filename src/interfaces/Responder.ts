@@ -4,6 +4,6 @@ export interface Responder {
   invalidLogin(): void;
   invalidRegistration(): void;
   invalidAccess(): void;
-  setCookie(key: string, value: string): void;
+  setCookie(key: string, value: string, user: any): void;
   removeCookie(key: string): void;
 }

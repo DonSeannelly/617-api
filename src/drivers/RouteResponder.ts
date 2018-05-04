@@ -56,7 +56,7 @@ export default class RouteResponder implements Responder {
     this.res.status(401).send('Invalid access token');
   }
 
-  setCookie(key: string, value: string) {
+  setCookie(key: string, value: string, user) {
     let options = {
       maxAge: 604800000,
       httpOnly: false,
@@ -64,7 +64,7 @@ export default class RouteResponder implements Responder {
       secure: process.env.NODE_ENV !== 'development'
     };
 
-    this.res.cookie(key, value, options).sendStatus(200);
+    this.res.cookie(key, value, options).status(200).json(user);
   }
 
   removeCookie(name: string): Response {
