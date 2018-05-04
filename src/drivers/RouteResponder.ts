@@ -1,6 +1,10 @@
 import { Responder } from '../interfaces';
 import { Response } from 'express';
 
+import * as dotenv from 'dotenv';
+dotenv.config()
+
+
 export default class RouteResponder implements Responder {
   /**
    *

@@ -30,7 +30,6 @@ gulp.task('start', ['watch', 'assets'], function () {
   nodemon({
     script: 'dist/app.js'
   , ext: 'js html'
-  , env: { 'NODE_ENV': process.env.NODE_ENV }
   , watch: ['./dist']
   })
 });

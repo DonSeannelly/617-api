@@ -24,7 +24,7 @@ const responseFactory = new ResponseFactory();
 
 var app = express();
 
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
 app.use(cookieParser());
 app.use(logger('dev'));
 
@@ -58,6 +58,7 @@ app.post('/users', async (req, res) => {
     req.body.password
   );
 })
+
 app.post('/users/tokens', async (req, res) => {
   await login(
     dataStore,
