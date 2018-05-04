@@ -68,4 +68,8 @@ app.post('/users/tokens', async (req, res) => {
   );
 });
 
+app.get('/users/tokens', async (req, res) => {
+  res.status(200).json(req['user']);
+});
+
 app.listen(port, () => console.log(`API is running on port ${port}`));
