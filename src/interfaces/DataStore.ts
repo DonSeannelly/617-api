@@ -2,7 +2,7 @@ export interface DataStore {
   getUsers();
   getUserByID(id: string);
   getUserByEmail(email: string);
-  addUser(firstname: string, lastname: string, email: string, password: string);
+  addUser(firstname: string, lastname: string, email: string, password: string): Promise<{ firstname: string, lastname: string, email: string, id: string }>;
   updateUser(id: string, name: string);
   deleteUser(id: string);
   getByte(id: string);
@@ -12,5 +12,5 @@ export interface DataStore {
   inviteUserToTable(tableId: string, email: string): Promise<void>;
   joinTable(tableId: string, userId: string);
   getByteSection(byteId, sectionId);
-  verifyUser(email: string, password: string): Promise<{ authenticated: boolean, firstname: string, lastname: string }>;
+  verifyUser(email: string, password: string): Promise<{ authenticated: boolean, firstname: string, lastname: string, email: string, id: string }>;
 }

@@ -53,15 +53,17 @@ export class MongoConnector implements DataStore {
 
   async addUser(firstname: string, lastname: string, email: string, password: string) {
     const emailInUse = await this.isUser(email);
-    console.log(emailInUse);
     if (!emailInUse) {
       try {
-        const userDoc = { _id: (new ObjectID).toString(), firstname, lastname, email , password: await new BcryptDriver(10).hash(password) };
+        const id = (new ObjectID).toString();
+        const userDoc = { _id: id, firstname, lastname, email , password: await new BcryptDriver(10).hash(password) };
         const doc = await this.db.collection(COLLECTIONS.USERS).insertOne(userDoc);
-        return Promise.resolve(true);
+        return Promise.resolve({ id, firstname, lastname, email });
       } catch (e) {
         return Promise.reject(e);
       }
+    } else {
+      return Promise.reject({ emailInUse });
     }
   }
   /**
@@ -139,12 +141,12 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
-  async verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; }> {
+  async verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; email: string; id: string; }> {
     const user = await this.db.collection(COLLECTIONS.USERS).findOne({ email });
     if (user) {
       const authenticated = await new BcryptDriver(10).verify(password, user.password);
       if (authenticated) {
-        return Promise.resolve({ authenticated, firstname: user.firstname, lastname: user.lastname });
+        return Promise.resolve({ authenticated, firstname: user.firstname, lastname: user.lastname, id: user._id, email });
       } else {
         return Promise.reject('Invalid credentials');
       }

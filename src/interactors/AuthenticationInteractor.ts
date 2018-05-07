@@ -22,11 +22,11 @@ export async function login(
   password: string
 ) {
   try {
-    const { authenticated, firstname, lastname } = await dataStore.verifyUser(email, password);
+    const { authenticated, firstname, lastname, id } = await dataStore.verifyUser(email, password);
 
     if (authenticated) {
       const token = generateToken({ firstname, lastname, email });
-      responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email });
+      responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email, id });
     } else {
       responder.invalidLogin();
     }
@@ -61,12 +61,16 @@ export async function register(
 ) {
   try {
     if (isValidEmail(email)) {
-      if (await datastore.addUser(firstname, lastname, email, password)) {
-        const token = generateToken({ firstname, lastname, email });
-        responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email });
-      } else {
-        responder.sendOperationError('Email address in use', 400);
-      }
+      datastore.addUser(firstname, lastname, email, password).then(user => {
+        const token = generateToken({ firstname, lastname, email, id: user.id });
+        responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email, id: user.id });
+      }).catch(e => {
+        if (e.emailInUse) {
+          responder.sendOperationError('Email address in use', 400);
+        } else {
+          responder.sendOperationError('Server Error', 500);
+        }
+      });
     } else {
       responder.sendOperationError('Invalid email provided.', 400);
     }

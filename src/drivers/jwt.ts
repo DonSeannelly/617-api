@@ -18,11 +18,12 @@ export const enforceTokenAccess = jwt({
 /**
  * Generates a signed JWT for a user.
  */
-export function generateToken({ firstname, lastname, email }): string {
+export function generateToken({ firstname, lastname, email, id }): string {
   const payload = {
     firstname,
     lastname,
-    email
+    email,
+    id
   };
   const options = {
     issuer: process.env.ISSUER,
