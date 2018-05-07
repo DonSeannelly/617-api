@@ -25,7 +25,7 @@ export async function login(
     const { authenticated, firstname, lastname, id } = await dataStore.verifyUser(email, password);
 
     if (authenticated) {
-      const token = generateToken({ firstname, lastname, email });
+      const token = generateToken({ firstname, lastname, email, id });
       responder.setCookie('presence', token, { name: `${firstname} ${lastname}`, firstname, lastname, email, id });
     } else {
       responder.invalidLogin();
