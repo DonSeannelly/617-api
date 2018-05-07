@@ -134,9 +134,20 @@ export class MongoConnector implements DataStore {
   async getByteSection(byteId, sectionId) {
     try {
       const result = await this.db.collection("bytes")
-        .find({ _id: byteId, sections: { $elemMatch: { _id: sectionId } } });
-      console.log(result);
-      return Promise.resolve(result);
+        .aggregate([
+          { $match: { _id: byteId, 'sections.id': sectionId }},
+          { $project: {
+            sections: {
+              $filter: {
+                input: '$sections',
+                as: 'section',
+                cond: { $eq: [ '$$section.id', sectionId ]}
+              }
+            }
+          }}
+        ]).toArray();
+
+      return Promise.resolve(result[0].sections[0]);
     } catch(e) {
       return Promise.reject(e);
     }

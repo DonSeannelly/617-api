@@ -38,7 +38,8 @@ export class SchemaBuilder {
         updateUser: userSchema.updateUser,
         inviteUser: tableSchema.inviteUser,
         createTable: tableSchema.createTable,
-        joinTable: tableSchema.joinTable
+        joinTable: tableSchema.joinTable,
+        validateSection: byteSchema.validateSection
       }
     });
 

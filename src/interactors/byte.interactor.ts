@@ -22,9 +22,8 @@ export async function validateSection({ dataStore, byteId, sectionId, answers })
   const isCorrect = [];
   for (let i = 0; i < section.questions.length; i++) {
     isCorrect.push(
-      section.questions[i].answerId === answers[i]
+      section.questions[i].answerId == answers[i]
     );
   }
-
   return isCorrect;
 }
