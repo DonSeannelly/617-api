@@ -7,6 +7,7 @@ export const ByteType = new GraphQLObjectType({
   name: 'Byte',
   fields: () => ({
     id: { type: GraphQLString },
+    image: { type: GraphQLString },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     date: { type: GraphQLInt },
