@@ -27,3 +27,9 @@ export async function validateSection({ dataStore, byteId, sectionId, answers })
   }
   return isCorrect;
 }
+
+export async function completeByte(dataStore: DataStore, byteId, userId) {
+  const status = await dataStore.completeByte(byteId, userId);
+
+  return status;
+}
