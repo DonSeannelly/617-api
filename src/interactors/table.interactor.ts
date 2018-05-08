@@ -33,3 +33,11 @@ export async function inviteUserToTable(dataStore: DataStore, tableId: string, e
 export async function joinTable(dataStore: DataStore, tableId: string, userId: string) {
   await dataStore.joinTable(tableId, userId);
 }
+
+export async function addByteToTable(dataStore: DataStore, tableId: string, byteId: string) {
+  return await dataStore.addByteToTable(tableId, byteId);
+}
+
+export async function removeByteFromTable(dataStore: DataStore, tableId: string, byteId: string) {
+  return await dataStore.removeByteFromTable(tableId, byteId);
+}

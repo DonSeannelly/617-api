@@ -16,4 +16,6 @@ export interface DataStore {
   completeByte(byteId: string, userId: string): Promise<boolean>;
   getTablesByUser(userId: string);
   getInvitedTables(id: string);
+  addByteToTable(tableId: string, byteId: string);
+  removeByteFromTable(tableId: string, byteId: string);
 }

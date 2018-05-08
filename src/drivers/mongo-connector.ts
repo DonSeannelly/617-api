@@ -275,6 +275,37 @@ export class MongoConnector implements DataStore {
       return Promise.reject('Invalid credentials');
     }
   }
+  async addByteToTable(tableId: string, byteId: string) {
+    try {
+      const result = await this.db.collection(COLLECTIONS.TABLES)
+        .updateOne(
+          { _id: tableId },
+          { $addToSet: { bytes: byteId }},
+          { upsert: true }
+        );
+      if (result.result.nModified > 0) {
+        return Promise.resolve(true);
+      } else return Promise.resolve(false);
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
+  async removeByteFromTable(tableId: string, byteId: string) {
+    try {
+      const result = await this.db.collection(COLLECTIONS.TABLES)
+        .updateOne(
+          { _id: tableId },
+          { $pull: { bytes: byteId } }
+        );
+      if (result.result.nModified > 0) {
+        return Promise.resolve(true);
+      } else return Promise.resolve(false);
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
 }
 
 interface TableDocument {

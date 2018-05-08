@@ -40,7 +40,9 @@ export class SchemaBuilder {
         createTable: tableSchema.createTable,
         joinTable: tableSchema.joinTable,
         validateSection: byteSchema.validateSection,
-        completeByte: byteSchema.completeByte
+        completeByte: byteSchema.completeByte,
+        addByteToTable: tableSchema.addByte,
+        removeByteFromTable: tableSchema.removeByte
       }
     });
 
