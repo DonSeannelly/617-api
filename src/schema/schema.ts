@@ -39,7 +39,8 @@ export class SchemaBuilder {
         inviteUser: tableSchema.inviteUser,
         createTable: tableSchema.createTable,
         joinTable: tableSchema.joinTable,
-        validateSection: byteSchema.validateSection
+        validateSection: byteSchema.validateSection,
+        completeByte: byteSchema.completeByte
       }
     });
 
