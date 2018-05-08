@@ -170,7 +170,7 @@ export class MongoConnector implements DataStore {
         } else {
           const user = res[0].user;
           const updateResult = await this.db.collection(COLLECTIONS.TABLES)
-            .updateOne({ _id: tableId }, { $push: { members: user._id } }, { upsert: true });
+            .updateOne({ _id: tableId }, { $addToSet: { members: user._id } }, { upsert: true });
           if (updateResult.result.ok == 1) {
             const removalResult = await this.db.collection(COLLECTIONS.TABLES)
               .updateOne(
