@@ -28,6 +28,12 @@ export const TABLE_TYPE = new GraphQLObjectType({
         if (parentValue._id) return parentValue._id;
       }
     },
+    name: {
+      type: GraphQLString,
+      resolve(parentValue, args, context) {
+        if (parentValue.name) return parentValue.name;
+      }
+    },
     owner: { 
       type: USER_TYPE,
       resolve(parentValue, args, context) {
