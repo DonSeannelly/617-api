@@ -96,14 +96,17 @@ export class MongoConnector implements DataStore {
   }
   async getBytes(userId?: string) {
     try {
-      const ids = (await this.db.collection(COLLECTIONS.USERS)
-        .find({ _id: userId }).project({ _id: 0, bytesCompleted: 1 }).toArray())
-        [0].bytesCompleted;
+      const result = await this.db.collection(COLLECTIONS.USERS)
+        .find({ _id: userId }).project({ _id: 0, bytesCompleted: 1 }).toArray();
 
-      const bytes = await this.db.collection(COLLECTIONS.BYTES)
-        .find({ _id: { $in: ids }}).toArray();
+      if (result && result.length > 0) {
+        const ids = result[0].bytesCompleted;
 
-      return bytes;
+        const bytes = await this.db.collection(COLLECTIONS.BYTES)
+          .find({ _id: { $in: ids }}).toArray();
+
+        return await bytes.map(async byte => ({ ...byte, id: byte._id }));
+      } else return null;
     } catch (e) {
       return Promise.reject(e);
     }
@@ -138,11 +141,6 @@ export class MongoConnector implements DataStore {
   }
   async joinTable(tableId: string, userId: string) {
     try {
-      /* const result = await this.db.collection(COLLECTIONS.TABLES)
-        .updateOne(
-          { _id: tableId },
-          { $pull: { invitations: { email: 'sdo@gmul.co' } }},
-        ) */
         const res = await this.db.collection(COLLECTIONS.TABLES)
           .aggregate([
             { $match: { _id: tableId } },
@@ -181,6 +179,25 @@ export class MongoConnector implements DataStore {
               );
           }
         }
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+
+  async getTablesByUser(userId: string) {
+    try {
+      const result = await this.db.collection(COLLECTIONS.TABLES)
+        .aggregate([
+          { $match: { 'members': userId } },
+          { $project: { _id: 1 } }
+        ]).toArray();
+      if (result && result.length > 0) {
+        const ids = result.map(record => record._id);
+        const tables = await this.db.collection(COLLECTIONS.TABLES)
+          .find({ _id: { $in: ids }})
+          .toArray();
+        return Promise.resolve(tables);
+      }
     } catch (e) {
       return Promise.reject(e);
     }

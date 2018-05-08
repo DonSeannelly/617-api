@@ -31,6 +31,10 @@ export function deleteUser(dataStore: DataStore, id: string) {
   return dataStore.deleteUser(id);
 }
 
+export async function getTablesByUser(dataStore: DataStore, id: string) {
+  return await dataStore.getTablesByUser(id);
+}
+
 function constructUser(user) {
   return { ...user, name: `${user.firstname} ${user.lastname}`, id: user._id };
 }

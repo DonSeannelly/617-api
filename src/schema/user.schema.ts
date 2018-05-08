@@ -1,6 +1,7 @@
 import { DataStore } from "../interfaces/DataStore";
-import { getUser, getUsers, updateUser, deleteUser, getUsersBytes } from '../interactors/user.interactor';
+import { getUser, getUsers, updateUser, deleteUser, getUsersBytes, getTablesByUser } from '../interactors/user.interactor';
 import { ByteType } from "./types/byte.type";
+import { TABLE_TYPE } from "./types/table.type";
 
 const {
   GraphQLObjectType,
@@ -23,7 +24,14 @@ export const USER_TYPE = new GraphQLObjectType({
     bytesCompleted: {
       type: GraphQLList(ByteType),
       resolve(parentValue, args, ctx) {
-        return getUsersBytes({ dataStore: ctx.dataStore, id: ctx.user._id });
+        return getUsersBytes({ dataStore: ctx.dataStore, id: parentValue._id });
+      }
+    },
+    tables: {
+      type: GraphQLList(TABLE_TYPE),
+      description: 'The tables that this user belongs to',
+      resolve(parentValue, args, context) {
+        return getTablesByUser(context.dataStore, parentValue.id);
       }
     }
   })

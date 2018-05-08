@@ -14,4 +14,5 @@ export interface DataStore {
   getByteSection(byteId, sectionId);
   verifyUser(email: string, password: string): Promise<{ authenticated: boolean, firstname: string, lastname: string, email: string, id: string }>;
   completeByte(byteId: string, userId: string): Promise<boolean>;
+  getTablesByUser(userId: string);
 }
