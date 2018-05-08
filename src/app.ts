@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 
 app.use('/api', graphqlHTTP(async (request, response, graphQLParams) => ({
   schema: SchemaBuilder.buildSchema(dataStore),
-  context: { request },
+  context: { request, dataStore },
   graphiql: !isProd,
 })));
 

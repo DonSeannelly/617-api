@@ -1,5 +1,6 @@
 import { DataStore } from "../interfaces/DataStore";
-import { getUser, getUsers, updateUser, deleteUser } from '../interactors/user.interactor';
+import { getUser, getUsers, updateUser, deleteUser, getUsersBytes } from '../interactors/user.interactor';
+import { ByteType } from "./types/byte.type";
 
 const {
   GraphQLObjectType,
@@ -18,7 +19,13 @@ export const USER_TYPE = new GraphQLObjectType({
     firstname: { type: GraphQLString },
     lastname: { type: GraphQLString },
     email: { type: GraphQLString },
-    profilePicture:{type: GraphQLString }
+    profilePicture:{type: GraphQLString },
+    bytesCompleted: {
+      type: GraphQLList(ByteType),
+      resolve(parentValue, args, ctx) {
+        return getUsersBytes({ dataStore: ctx.dataStore, id: ctx.user._id });
+      }
+    }
   })
 });
 
@@ -29,6 +36,7 @@ export class UserSchema {
   updateUser;
 
   constructor(private dataStore: DataStore) {
+
     this.user = {
       type: USER_TYPE,
         args: {
@@ -41,7 +49,7 @@ export class UserSchema {
 
     this.users = {
       type: new GraphQLList(USER_TYPE),
-        resolve(parentValue, args) {
+      resolve(parentValue, args) {
         return getUsers(dataStore);
       }
     };

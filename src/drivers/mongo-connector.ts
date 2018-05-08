@@ -93,9 +93,16 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
-  async getBytes() {
+  async getBytes(userId?: string) {
     try {
-      return await this.db.collection(COLLECTIONS.BYTES).find({}).toArray();
+      const ids = (await this.db.collection(COLLECTIONS.USERS)
+        .find({ _id: userId }).project({ _id: 0, bytesCompleted: 1 }).toArray())
+        [0].bytesCompleted;
+
+      const bytes = await this.db.collection(COLLECTIONS.BYTES)
+        .find({ _id: { $in: ids }}).toArray();
+
+      return bytes;
     } catch (e) {
       return Promise.reject(e);
     }

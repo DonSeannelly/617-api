@@ -19,6 +19,13 @@ export async function getUser({ dataStore, id, email }: { dataStore: DataStore, 
 
   return constructUser(user);
 }
+
+export async function getUsersBytes({ dataStore, id }: { dataStore: DataStore, id: string }) {
+  const bytes = await dataStore.getBytes(id);
+  console.log(bytes);
+  return bytes;
+}
+
 export function updateUser(dataStore: DataStore, id: string, name: string) {
   return dataStore.updateUser(id, name);
 }
