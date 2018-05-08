@@ -35,6 +35,10 @@ export async function getTablesByUser(dataStore: DataStore, id: string) {
   return await dataStore.getTablesByUser(id);
 }
 
+export async function getInvitedTables(dataStore: DataStore, id: string) {
+  return await dataStore.getInvitedTables(id);
+}
+
 function constructUser(user) {
   return { ...user, name: `${user.firstname} ${user.lastname}`, id: user._id };
 }

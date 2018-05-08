@@ -15,4 +15,5 @@ export interface DataStore {
   verifyUser(email: string, password: string): Promise<{ authenticated: boolean, firstname: string, lastname: string, email: string, id: string }>;
   completeByte(byteId: string, userId: string): Promise<boolean>;
   getTablesByUser(userId: string);
+  getInvitedTables(id: string);
 }

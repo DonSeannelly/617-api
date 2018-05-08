@@ -1,5 +1,5 @@
 import { DataStore } from "../interfaces/DataStore";
-import { getUser, getUsers, updateUser, deleteUser, getUsersBytes, getTablesByUser } from '../interactors/user.interactor';
+import { getUser, getUsers, updateUser, deleteUser, getUsersBytes, getTablesByUser, getInvitedTables } from '../interactors/user.interactor';
 import { ByteType } from "./types/byte.type";
 import { TABLE_TYPE } from "./types/table.type";
 
@@ -32,6 +32,13 @@ export const USER_TYPE = new GraphQLObjectType({
       description: 'The tables that this user belongs to',
       resolve(parentValue, args, context) {
         return getTablesByUser(context.dataStore, parentValue.id);
+      }
+    },
+    invitations: {
+      type: GraphQLList(TABLE_TYPE),
+      description: 'The tables that the user has been invited to',
+      resolve(parentValue, args, context) {
+        return getInvitedTables(context.dataStore, parentValue.id);
       }
     }
   })

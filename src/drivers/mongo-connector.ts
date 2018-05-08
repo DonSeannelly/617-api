@@ -202,6 +202,32 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
+  async getInvitedTables(id: string) {
+    try {
+      const result = await this.db.collection(COLLECTIONS.USERS)
+        .aggregate([
+          { $match: { _id: id } },
+          {
+            $lookup: {
+              from: COLLECTIONS.TABLES,
+              localField: 'email',
+              foreignField: 'invitations.email',
+              as: 'tables_inviting_user'
+            }
+          },
+          {
+            $unwind: '$tables_inviting_user'
+          },
+          {
+            $project: { _id: 0, tables_inviting_user: 1 }
+          }
+        ]).toArray();
+      return Promise.resolve(result.map(doc => doc.tables_inviting_user));
+    } catch (e) {
+      console.error(e);
+      return Promise.reject(e);
+    }
+  }
   async getByteSection(byteId, sectionId) {
     try {
       const result = await this.db.collection("bytes")
