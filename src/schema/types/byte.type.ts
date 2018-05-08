@@ -2,6 +2,7 @@ import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList } from 'graph
 import { MATERIALS_TYPE } from './materials.type'
 import { USER_TYPE } from '../user.schema'
 import { SECTION_TYPE } from './section.type';
+import { getUser } from '../../interactors/user.interactor';
 
 export const ByteType = new GraphQLObjectType({
   name: 'Byte',
@@ -11,7 +12,15 @@ export const ByteType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     date: { type: GraphQLInt },
-    creator: { type: USER_TYPE },
+    creator: {
+      type: USER_TYPE,
+      resolve(parentValue, args, context) {
+        console.log(parentValue);
+        if (parentValue.creatorID) {
+          return getUser({ dataStore: context.dataStore, id: parentValue.creatorID })
+        }
+      }
+    },
     materials: { type: MATERIALS_TYPE },
     sections: { type: GraphQLList(SECTION_TYPE) }
   })

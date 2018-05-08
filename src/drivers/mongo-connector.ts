@@ -175,10 +175,12 @@ export class MongoConnector implements DataStore {
             const removalResult = await this.db.collection(COLLECTIONS.TABLES)
               .updateOne(
                 { _id: tableId },
-                { $pull: { invitations: { email: 'sdo@gmul.co' } } }
+                { $pull: { invitations: { email: user.email } } }
               );
+              return Promise.resolve(true);
           }
         }
+
     } catch (e) {
       return Promise.reject(e);
     }
