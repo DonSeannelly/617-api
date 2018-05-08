@@ -96,16 +96,16 @@ export class MongoConnector implements DataStore {
   }
   async getBytes(userId?: string) {
     try {
+      const filter = userId ? { _id: userId } : { };
       const result = await this.db.collection(COLLECTIONS.USERS)
-        .find({ _id: userId }).project({ _id: 0, bytesCompleted: 1 }).toArray();
-
+        .find(filter).project({ _id: 0, bytesCompleted: 1 }).toArray();
+        
       if (result && result.length > 0) {
         const ids = result[0].bytesCompleted;
 
         const bytes = await this.db.collection(COLLECTIONS.BYTES)
           .find({ _id: { $in: ids }}).toArray();
-
-        return await bytes.map(async byte => ({ ...byte, id: byte._id }));
+        return Promise.resolve(bytes);
       } else return null;
     } catch (e) {
       return Promise.reject(e);
@@ -136,6 +136,20 @@ export class MongoConnector implements DataStore {
       const result = await this.db.collection('tables')
         .updateOne({ _id: tableId }, { $push: { invitations: { email, dateSent: Date.now() } } }, { upsert: true });
     } catch(e) {
+      return Promise.reject(e);
+    }
+  }
+  async uninviteUserToTable(tableId: string, email: string): Promise<boolean> {
+    try {
+      const result = await this.db.collection('tables')
+        .updateOne({ _id: tableId }, { $pull: { invitations: { email } } });
+      
+      if (result.modifiedCount > 0) {
+        return Promise.resolve(true);
+      } else {
+        return Promise.resolve(false);
+      }
+    } catch (e) {
       return Promise.reject(e);
     }
   }

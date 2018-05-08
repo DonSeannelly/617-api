@@ -9,7 +9,7 @@ import {
 } from 'graphql';
 import { DataStore } from '../interfaces/DataStore';
 import { TABLE_TYPE } from './types/table.type';
-import { createTable, getTable, inviteUserToTable, joinTable, addByteToTable, removeByteFromTable, removeUserFromTable } from '../interactors/table.interactor';
+import { createTable, getTable, inviteUserToTable, joinTable, addByteToTable, removeByteFromTable, removeUserFromTable, uninviteUserToTable } from '../interactors/table.interactor';
 import { USER_TYPE } from './user.schema';
 
 export class TableSchema {
@@ -20,6 +20,7 @@ export class TableSchema {
   addByte;
   removeByte;
   removeUser;
+  uninviteUser;
 
   constructor(private dataStore: DataStore) {
     this.table = {
@@ -100,6 +101,18 @@ export class TableSchema {
       },
       resolve(parentValue, args, context) {
         return removeUserFromTable(context.dataStore, args.tableId, args.userId);
+      }
+    }
+
+    this.uninviteUser = {
+      type: USER_TYPE,
+      description: 'Cancels the invitation to the user to join the table',
+      args: {
+        tableId: { type: GraphQLString },
+        email: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return uninviteUserToTable(dataStore, args.tableId, args.email);
       }
     }
   }

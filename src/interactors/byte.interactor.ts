@@ -5,7 +5,6 @@ export async function getByte(dataStore: DataStore, id: string) {
   const byte = await dataStore.getByte(id);
   if (byte) {
     const user = await getUser({ dataStore, id: byte.creatorID });
-    delete byte.creatorID;
     return { ...byte, id: byte._id, creator: user };
   } else {
     return null;
@@ -14,7 +13,8 @@ export async function getByte(dataStore: DataStore, id: string) {
 
 export async function getBytes(dataStore: DataStore) {
   const bytes = await dataStore.getBytes();
-  return await bytes.map(async byte => ({ ...byte, id: byte._id, creator: getUser({ dataStore, id: byte.creatorID }) }))
+  console.log(bytes);
+  return await bytes.map(byte => ({ ...byte, id: byte._id }))
 }
 
 export async function validateSection({ dataStore, byteId, sectionId, answers }) {

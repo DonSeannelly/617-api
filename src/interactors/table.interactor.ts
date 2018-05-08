@@ -37,3 +37,9 @@ export async function removeByteFromTable(dataStore: DataStore, tableId: string,
 export async function removeUserFromTable(dataStore: DataStore, tableId: string, byteId: string) {
   return await dataStore.removeUserFromTable(tableId, byteId);
 }
+
+export async function uninviteUserToTable(dataStore: DataStore, tableId: string, email: string) {
+  await dataStore.uninviteUserToTable(tableId, email);
+  const user = await dataStore.getUserByEmail(email);
+  return constructUser(user);
+}

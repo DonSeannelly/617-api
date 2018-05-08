@@ -10,6 +10,7 @@ export interface DataStore {
   getTable(id: string): Promise<{ _id: string, hostId: string; members: any; invitations: any; bytes: string[] }>;
   createTable(name: string, hostId: string): Promise<string>;
   inviteUserToTable(tableId: string, email: string): Promise<void>;
+  uninviteUserToTable(tableId: string, email: string): Promise<boolean>;
   joinTable(tableId: string, userId: string);
   getByteSection(byteId, sectionId);
   verifyUser(email: string, password: string): Promise<{ authenticated: boolean, firstname: string, lastname: string, email: string, id: string }>;

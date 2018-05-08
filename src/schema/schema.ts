@@ -43,7 +43,8 @@ export class SchemaBuilder {
         completeByte: byteSchema.completeByte,
         addByteToTable: tableSchema.addByte,
         removeByteFromTable: tableSchema.removeByte,
-        removeUserFromTable: tableSchema.removeUser
+        removeUserFromTable: tableSchema.removeUser,
+        uninviteUserToTable: tableSchema.uninviteUser
       }
     });
 
