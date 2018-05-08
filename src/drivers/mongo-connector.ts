@@ -252,7 +252,7 @@ export class MongoConnector implements DataStore {
   async completeByte(byteId: string, userId: string): Promise<boolean> {
     try {
       const result = await this.db.collection(COLLECTIONS.USERS)
-        .updateOne({ _id: userId }, { $push: { bytesCompleted: byteId } });
+        .updateOne({ _id: userId }, { $addToSet: { bytesCompleted: byteId } });
       if (result.modifiedCount > 0) {
         return Promise.resolve(true);
       } else {
