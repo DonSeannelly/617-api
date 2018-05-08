@@ -159,6 +159,19 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
+  async completeByte(byteId: string, userId: string): Promise<boolean> {
+    try {
+      const result = await this.db.collection(COLLECTIONS.USERS)
+        .updateOne({ _id: userId }, { $push: { bytesCompleted: byteId } });
+      if (result.modifiedCount > 0) {
+        return Promise.resolve(true);
+      } else {
+        return Promise.resolve(false);
+      }
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
   async verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; email: string; id: string; }> {
     const user = await this.db.collection(COLLECTIONS.USERS).findOne({ email });
     if (user) {
