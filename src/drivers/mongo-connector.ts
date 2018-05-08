@@ -5,7 +5,8 @@ import * as dotenv from 'dotenv';
 
 const COLLECTIONS = {
   USERS: 'users',
-  BYTES: 'bytes'
+  BYTES: 'bytes',
+  TABLES: 'tables'
 }
 
 export class MongoConnector implements DataStore {
@@ -135,8 +136,54 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
-  joinTable(tableId: string, userId: string) {
-    throw new Error('Method not implemented.');
+  async joinTable(tableId: string, userId: string) {
+    try {
+      /* const result = await this.db.collection(COLLECTIONS.TABLES)
+        .updateOne(
+          { _id: tableId },
+          { $pull: { invitations: { email: 'sdo@gmul.co' } }},
+        ) */
+        const res = await this.db.collection(COLLECTIONS.TABLES)
+          .aggregate([
+            { $match: { _id: tableId } },
+            {
+              $lookup: {
+                from: COLLECTIONS.USERS,
+                localField: 'invitations.email',
+                foreignField: 'email',
+                as: 'user'
+              }
+            },
+            { $project: { 
+                user: {
+                  $filter: {
+                    input: '$user',
+                    as: 'user',
+                    cond: { $eq: [ '$$user._id', userId ]}
+                  }
+                }
+              } 
+            },
+            { $unwind: '$user' }
+          ]).toArray();
+          
+        if (res.length !== 1) {
+          throw new Error(`${res.length} users linked to the invitation!`)
+        } else {
+          const user = res[0].user;
+          const updateResult = await this.db.collection(COLLECTIONS.TABLES)
+            .updateOne({ _id: tableId }, { $push: { members: user._id } }, { upsert: true });
+          if (updateResult.result.ok == 1) {
+            const removalResult = await this.db.collection(COLLECTIONS.TABLES)
+              .updateOne(
+                { _id: tableId },
+                { $pull: { invitations: { email: 'sdo@gmul.co' } } }
+              );
+          }
+        }
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
   async getByteSection(byteId, sectionId) {
     try {
