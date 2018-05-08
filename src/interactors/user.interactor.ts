@@ -14,15 +14,13 @@ export async function getUser({ dataStore, id, email }: { dataStore: DataStore, 
   if (id) {
     user = await dataStore.getUserByID(id);
   } else if (email) {
-    user = await dataStore.getUserByEmail(email)
+    user = await dataStore.getUserByEmail(email);
   }
-
   return constructUser(user);
 }
 
 export async function getUsersBytes({ dataStore, id }: { dataStore: DataStore, id: string }) {
   const bytes = await dataStore.getBytes(id);
-  console.log(bytes);
   return bytes;
 }
 

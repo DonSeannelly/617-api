@@ -107,7 +107,7 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
-  async getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; bytes: string[] }> {
+  async getTable(id: string): Promise<{ _id: string, hostId: string; members: any; invitations: any; bytes: string[] }> {
     try {
       const tableDoc = await this.db.collection('tables').findOne({ _id: id });
       return Promise.resolve(tableDoc);
@@ -130,7 +130,7 @@ export class MongoConnector implements DataStore {
   async inviteUserToTable(tableId: string, email: string): Promise<void> {
     try {
       const result = await this.db.collection('tables')
-        .updateOne({ _id: tableId }, { $push: { invites: { email, dateSent: Date.now() } } }, { upsert: true });
+        .updateOne({ _id: tableId }, { $push: { invitations: { email, dateSent: Date.now() } } }, { upsert: true });
     } catch(e) {
       return Promise.reject(e);
     }
@@ -192,5 +192,5 @@ interface TableDocument {
   hostId: string;
   meals: any;
   members: any;
-  invites: any;
+  invitations: any;
 }

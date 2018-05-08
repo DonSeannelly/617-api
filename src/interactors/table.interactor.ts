@@ -11,28 +11,37 @@ export async function getTable(dataStore: DataStore, id: string) {
   const table = await dataStore.getTable(id);
   const owner = await getUser({dataStore, id: table.hostId});
   delete table.hostId;
+  
+  const resolvedMembers = table.members ? mapMembers({ dataStore, members: table.members }) : null;
 
-  const resolvedMembers = table.members.map(async member => {
-    let resolvedUser = await getUser({ dataStore, id: member.userId });
-    delete member.userId;
-    return { ...member, ...resolvedUser };
-  });
+  const resolvedInvited = table.invitations ? mapInvites({ dataStore, invitations: table.invitations }) : null;
 
-  const resolvedInvited = table.invitations.map(async user => {
-    let resolvedUser = await getUser({ dataStore, id: user.userId });
-    delete user.userId;
-    return { ...user, ...resolvedUser };
-  });
-
-  const resolvedBytes = table.bytes.map(async byteId => await getByte(dataStore, byteId));
+  const resolvedBytes = table.bytes ? table.bytes.map(async byteId => await getByte(dataStore, byteId)): null;
 
   return {
     ...table, 
+    id: table._id,
     owner, 
     members: resolvedMembers,
     invitations: resolvedInvited,
     bytes: resolvedBytes
   }
+}
+
+function mapInvites({ dataStore, invitations }) {
+  return invitations.map(async user => {
+    let resolvedUser = await getUser({ dataStore, id: user.userId });
+    delete user.userId;
+    return { ...user, ...resolvedUser };
+  });
+}
+
+function mapMembers({ dataStore, members }) {
+  return members.map(async member => {
+    let resolvedUser = await getUser({ dataStore, id: member.userId });
+    delete member.userId;
+    return { ...member, ...resolvedUser };
+  });
 }
 
 export async function inviteUserToTable(dataStore: DataStore, tableId: string, email: string) {

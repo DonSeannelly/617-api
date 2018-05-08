@@ -7,7 +7,7 @@ export interface DataStore {
   deleteUser(id: string);
   getByte(id: string);
   getBytes(userId?: string);
-  getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; bytes: string[] }>;
+  getTable(id: string): Promise<{ _id: string, hostId: string; members: any; invitations: any; bytes: string[] }>;
   createTable(name: string, hostId: string): Promise<string>;
   inviteUserToTable(tableId: string, email: string): Promise<void>;
   joinTable(tableId: string, userId: string);
