@@ -18,4 +18,5 @@ export interface DataStore {
   getInvitedTables(id: string);
   addByteToTable(tableId: string, byteId: string);
   removeByteFromTable(tableId: string, byteId: string);
+  removeUserFromTable(tableId: string, userId: string);
 }

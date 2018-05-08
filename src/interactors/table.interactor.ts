@@ -41,3 +41,7 @@ export async function addByteToTable(dataStore: DataStore, tableId: string, byte
 export async function removeByteFromTable(dataStore: DataStore, tableId: string, byteId: string) {
   return await dataStore.removeByteFromTable(tableId, byteId);
 }
+
+export async function removeUserFromTable(dataStore: DataStore, tableId: string, byteId: string) {
+  return await dataStore.removeUserFromTable(tableId, byteId);
+}

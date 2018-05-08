@@ -183,7 +183,19 @@ export class MongoConnector implements DataStore {
       return Promise.reject(e);
     }
   }
+  async removeUserFromTable(tableId: string, userId: string) {
+    try {
+      const result = await this.db.collection(COLLECTIONS.TABLES)
+        .updateOne({ _id: tableId }, { $pull: { members: userId }});
 
+      if (result.result.nModified > 0) {
+        return Promise.resolve(true);
+      } else return Promise.resolve(false);
+    } catch (e) {
+      console.error(e);
+      return Promise.reject(e);
+    }
+  }
   async getTablesByUser(userId: string) {
     try {
       const result = await this.db.collection(COLLECTIONS.TABLES)

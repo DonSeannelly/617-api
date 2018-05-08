@@ -9,7 +9,7 @@ import {
 } from 'graphql';
 import { DataStore } from '../interfaces/DataStore';
 import { TABLE_TYPE } from './types/table.type';
-import { createTable, getTable, inviteUserToTable, joinTable, addByteToTable, removeByteFromTable } from '../interactors/table.interactor';
+import { createTable, getTable, inviteUserToTable, joinTable, addByteToTable, removeByteFromTable, removeUserFromTable } from '../interactors/table.interactor';
 import { USER_TYPE } from './user.schema';
 
 export class TableSchema {
@@ -19,6 +19,7 @@ export class TableSchema {
   joinTable;
   addByte;
   removeByte;
+  removeUser;
 
   constructor(private dataStore: DataStore) {
     this.table = {
@@ -88,6 +89,17 @@ export class TableSchema {
       },
       resolve(parentValue, args, context) {
         return removeByteFromTable(context.dataStore, args.tableId, args.byteId);
+      }
+    }
+
+    this.removeUser = {
+      type: GraphQLBoolean,
+      args: {
+        tableId: { type: GraphQLString },
+        userId: { type: GraphQLString },
+      },
+      resolve(parentValue, args, context) {
+        return removeUserFromTable(context.dataStore, args.tableId, args.userId);
       }
     }
   }

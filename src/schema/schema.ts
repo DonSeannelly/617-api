@@ -42,7 +42,8 @@ export class SchemaBuilder {
         validateSection: byteSchema.validateSection,
         completeByte: byteSchema.completeByte,
         addByteToTable: tableSchema.addByte,
-        removeByteFromTable: tableSchema.removeByte
+        removeByteFromTable: tableSchema.removeByte,
+        removeUserFromTable: tableSchema.removeUser
       }
     });
 
