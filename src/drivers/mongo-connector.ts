@@ -133,8 +133,40 @@ export class MongoConnector implements DataStore {
   }
   async inviteUserToTable(tableId: string, email: string): Promise<void> {
     try {
-      const result = await this.db.collection('tables')
-        .updateOne({ _id: tableId }, { $push: { invitations: { email, dateSent: Date.now() } } }, { upsert: true });
+      const memberResult = await this.db.collection(COLLECTIONS.TABLES)
+        .aggregate([
+          { $match: { _id: tableId } },
+          {
+            $lookup: {
+              from: COLLECTIONS.USERS,
+              localField: 'members',
+              foreignField: '_id',
+              as: 'members_of_table'
+            }
+          },
+          {
+            $project: {
+              members_of_table: {
+                $filter: {
+                  input: '$members_of_table',
+                  as: 'table_member',
+                  cond: { $eq: ['$$table_member.email', email] }
+                }
+              },
+              _id: 0
+            }
+          },
+          { $unwind: '$members_of_table' },
+          { $project: { 'members_of_table._id': 1 } }
+        ]).toArray();
+
+      if (memberResult.length === 0) {
+        const result = await this.db.collection(COLLECTIONS.TABLES)
+          .updateOne({ _id: tableId }, { $push: { invitations: { email, dateSent: Date.now() } } }, { upsert: true });
+      } else {
+        return Promise.reject('This user is already a member of this table');
+      }
+      
     } catch(e) {
       return Promise.reject(e);
     }
