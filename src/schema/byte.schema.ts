@@ -20,6 +20,7 @@ export class ByteSchema {
   constructor(private dataStore: DataStore) {
     this.byte = {
       type: ByteType,
+      description: 'Resolves a byte by its unique identifier',
       args: {
         id: { type: GraphQLString }
       },
@@ -30,6 +31,7 @@ export class ByteSchema {
 
     this.bytes = {
       type: GraphQLList(ByteType),
+      description: 'Resolves all bytes in the system',
       resolve(parentValue, args) {
         return getBytes(dataStore);
       }
@@ -37,6 +39,7 @@ export class ByteSchema {
 
     this.validateSection = {
       type: GraphQLList(GraphQLBoolean),
+      description: 'Checks whether or not the answers to a section\'s questions are correct',
       args: {
         byteId: { type: GraphQLString },
         sectionId: { type: GraphQLString },

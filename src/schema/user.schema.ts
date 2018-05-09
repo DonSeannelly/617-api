@@ -54,7 +54,8 @@ export class UserSchema {
 
     this.user = {
       type: USER_TYPE,
-        args: {
+      description: 'Resolves a user by their unique identifier',
+      args: {
         id: { type: GraphQLString }
       },
       resolve(parentValue, args) {
@@ -64,6 +65,7 @@ export class UserSchema {
 
     this.users = {
       type: new GraphQLList(USER_TYPE),
+      description: 'Resolves all users in the system',
       resolve(parentValue, args) {
         return getUsers(dataStore);
       }
@@ -71,7 +73,8 @@ export class UserSchema {
 
     this.deleteUser = {
       type: USER_TYPE,
-        args: {
+      description: 'Removes a user, given their unique identifier',
+      args: {
         id: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, args) {
@@ -82,7 +85,8 @@ export class UserSchema {
 
     this.updateUser = {
       type: USER_TYPE,
-        args: {
+      description: 'Updates a user\'s personal information',
+      args: {
         id: { type: new GraphQLNonNull(GraphQLString) },
         name: { type: GraphQLString }
       },
