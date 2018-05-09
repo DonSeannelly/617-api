@@ -25,6 +25,7 @@ export class TableSchema {
   constructor(private dataStore: DataStore) {
     this.table = {
       type: TABLE_TYPE,
+      description: 'Resolves a table by it\'s unique identifier',
       args: {
         id: { type: GraphQLString }
       },
@@ -37,9 +38,13 @@ export class TableSchema {
       type: new GraphQLObjectType({
         name: 'TableCreationEvent',
         fields: () => ({
-          id: { type: GraphQLString }
+          id: { 
+            type: GraphQLString, 
+            description: 'The unique identifier of the table created' 
+          }
         })
       }),
+      description: 'Creates a new table',
       args: {
         name: { type: GraphQLString },
         hostId: { type: GraphQLString }
@@ -51,6 +56,7 @@ export class TableSchema {
 
     this.inviteUser = {
       type: USER_TYPE,
+      description: 'Sends a table invitation to a given email address. Resolves a user if the email is linked to an existing user account.',
       args: {
         tableId: { type: GraphQLString },
         email: { type: GraphQLString }
@@ -62,6 +68,7 @@ export class TableSchema {
 
     this.joinTable = {
       type: GraphQLBoolean,
+      description: 'Adds a user to a table if they have a pending invitation',
       args: {
         tableId: { type: GraphQLString },
         userId: { type: GraphQLString },
@@ -73,6 +80,7 @@ export class TableSchema {
 
     this.addByte = {
       type: GraphQLBoolean,
+      description: 'Adds a byte to a table\'s offerings',
       args: {
         tableId: { type: GraphQLString },
         byteId: { type: GraphQLString },
@@ -84,6 +92,7 @@ export class TableSchema {
 
     this.removeByte = {
       type: GraphQLBoolean,
+      description: 'Removes a byte from a table\'s offerings',
       args: {
         tableId: { type: GraphQLString },
         byteId: { type: GraphQLString },
@@ -95,6 +104,7 @@ export class TableSchema {
 
     this.removeUser = {
       type: GraphQLBoolean,
+      description: 'Removes a user from a table\'s list of members',
       args: {
         tableId: { type: GraphQLString },
         userId: { type: GraphQLString },
@@ -106,7 +116,7 @@ export class TableSchema {
 
     this.uninviteUser = {
       type: USER_TYPE,
-      description: 'Cancels the invitation to the user to join the table',
+      description: 'Cancels the invitation to the user to join a table',
       args: {
         tableId: { type: GraphQLString },
         email: { type: GraphQLString }
