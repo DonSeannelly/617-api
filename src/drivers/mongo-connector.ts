@@ -96,17 +96,26 @@ export class MongoConnector implements DataStore {
   }
   async getBytes(userId?: string) {
     try {
-      const filter = userId ? { _id: userId } : { };
-      const result = await this.db.collection(COLLECTIONS.USERS)
-        .find(filter).project({ _id: 0, bytesCompleted: 1 }).toArray();
-        
-      if (result && result.length > 0) {
-        const ids = result[0].bytesCompleted;
+      let byteQuery = {};
+      if (userId) {
+        const filter = userId ? { _id: userId } : { };
+        const result = await this.db.collection(COLLECTIONS.USERS)
+          .find(filter).project({ _id: 0, bytesCompleted: 1 }).toArray();
+          
+        if (result && result.length > 0) {
+          const ids = result[0].bytesCompleted;
+          if (ids == undefined) {
+            return null;
+          }
+          byteQuery = { _id: { $in: ids } };
+        } else return null;
+      }
+      
+      const bytes = await this.db.collection(COLLECTIONS.BYTES)
+        .find(byteQuery).toArray();
 
-        const bytes = await this.db.collection(COLLECTIONS.BYTES)
-          .find({ _id: { $in: ids }}).toArray();
-        return Promise.resolve(bytes);
-      } else return null;
+      return Promise.resolve(bytes);
+      
     } catch (e) {
       return Promise.reject(e);
     }
