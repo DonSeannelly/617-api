@@ -40,7 +40,7 @@ export class ByteSchema {
       args: {
         byteId: { type: GraphQLString },
         sectionId: { type: GraphQLString },
-        answers: { type: GraphQLList(GraphQLInt) }
+        answers: { type: GraphQLList(GraphQLString) }
       },
       resolve(parentValue, args) {
         return validateSection({ dataStore, ...args });

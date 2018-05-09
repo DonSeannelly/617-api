@@ -7,6 +7,6 @@ export const MULTIPLE_CHOICE_QUESTION_TYPE = new GraphQLObjectType({
     index: { type: GraphQLInt },
     text: { type: GraphQLString },
     options: { type: GraphQLList(MULTIPLE_CHOICE_OPTION_TYPE) },
-    answerId: { type: GraphQLInt }
+    answerId: { type: GraphQLString }
   })
 })
