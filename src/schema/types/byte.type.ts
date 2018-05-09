@@ -7,7 +7,12 @@ import { getUser } from '../../interactors/user.interactor';
 export const ByteType = new GraphQLObjectType({
   name: 'Byte',
   fields: () => ({
-    id: { type: GraphQLString },
+    id: { 
+      type: GraphQLString, 
+      resolve(parentValue, args, context) { 
+        if (parentValue._id) return parentValue._id; 
+      } 
+    },
     image: { type: GraphQLString },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
@@ -15,7 +20,6 @@ export const ByteType = new GraphQLObjectType({
     creator: {
       type: USER_TYPE,
       resolve(parentValue, args, context) {
-        console.log(parentValue);
         if (parentValue.creatorID) {
           return getUser({ dataStore: context.dataStore, id: parentValue.creatorID })
         }

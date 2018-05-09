@@ -13,7 +13,6 @@ export async function getByte(dataStore: DataStore, id: string) {
 
 export async function getBytes(dataStore: DataStore) {
   const bytes = await dataStore.getBytes();
-  console.log(bytes);
   return await bytes.map(byte => ({ ...byte, id: byte._id }))
 }
 
