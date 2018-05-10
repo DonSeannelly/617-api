@@ -13,6 +13,8 @@ import { enforceTokenAccess } from "./drivers/jwt";
 import { login, register } from "./interactors/AuthenticationInteractor";
 import { ResponseFactory } from "./drivers/ResponseFactory";
 import RouteResponder from "./drivers/RouteResponder";
+import { NotificationManager } from "./interfaces/NotificationManager";
+import { sendInvite } from "./drivers/Nodemailer";
 
 // =====================================================================
 //                               Config
@@ -48,7 +50,7 @@ app.use('/', express.static(path.join(__dirname, 'client')))
 
 app.use('/api', graphqlHTTP(async (request, response, graphQLParams) => ({
   schema: SchemaBuilder.buildSchema(dataStore),
-  context: { request, dataStore },
+  context: { request, dataStore, notificationManager: new MailHandler() },
   graphiql: !isProd,
 })));
 
@@ -85,3 +87,7 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => console.log(`API is running on port ${port}`));
+
+class MailHandler implements NotificationManager {
+  sendInvite = sendInvite;
+}

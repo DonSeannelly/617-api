@@ -61,8 +61,8 @@ export class TableSchema {
         tableId: { type: GraphQLString },
         email: { type: GraphQLString }
       },
-      resolve(parentValue, args) {
-        return inviteUserToTable(dataStore, args.tableId, args.email);
+      resolve(parentValue, args, context) {
+        return inviteUserToTable(context.dataStore, context.notificationManager, args.tableId, args.email);
       }
     }
 

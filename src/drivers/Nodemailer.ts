@@ -1,18 +1,20 @@
 var nodemailer = require('nodemailer');
-export async function sendInvite(email,url){
+require('dotenv').config();
+
+export async function sendInvite(email,text){
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'mailertest343@gmail.com',
-      pass: 'Angad1031'
+      pass: process.env.NODEMAILER_PASS
     }
   });
 
   var mailOptions = {
     from: 'mailertest343@gmail.com',
     to: email,
-    subject: 'Adding New user',
-    text: url
+    subject: 'You have a new Table invite',
+    text
   };
   
   transporter.sendMail(mailOptions, function(error, info){

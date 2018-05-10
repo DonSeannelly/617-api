@@ -1,7 +1,7 @@
 import { DataStore } from "../interfaces/DataStore";
 import { getUser, constructUser } from "./user.interactor";
 import { getByte } from "./byte.interactor";
-import {sendInvite}  from "./Nodemailer";
+import { NotificationManager } from "../interfaces/NotificationManager";
 
 export async function createTable(dataStore: DataStore, name: string, hostId: string) {
   const id = await dataStore.createTable(name, hostId);
@@ -17,11 +17,12 @@ export async function getTable(dataStore: DataStore, id: string) {
   }
 }
 
-export async function inviteUserToTable(dataStore: DataStore, tableId: string, email: string) {
+export async function inviteUserToTable(dataStore: DataStore, notificationManager: NotificationManager, tableId: string, email: string) {
   await dataStore.inviteUserToTable(tableId, email);
   const invitee = await dataStore.getUserByEmail(email);
-  const url="http://google.com";
-  sendInvite(email,url);
+
+  const text =`You have been invited to a new table! Log in to SoftwareBytes to check it out!\n\nhttps://softwarebytes.herokuapp.com`;
+  notificationManager.sendInvite(email,text);
   return constructUser(invitee);
 }
 
