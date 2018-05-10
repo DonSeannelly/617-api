@@ -1,6 +1,7 @@
 var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var bodyParser = require("body-parser");
+const path = require('path');
 
 import { SchemaBuilder } from "./schema/schema";
 import * as cors from 'cors';
@@ -42,6 +43,8 @@ app.use(bodyParser.json());
 //                              GraphQL
 // =====================================================================
 
+app.use('/', express.static(path.join(__dirname, 'client')))
+
 app.use('/api', graphqlHTTP(async (request, response, graphQLParams) => ({
   schema: SchemaBuilder.buildSchema(dataStore),
   context: { request, dataStore },
@@ -70,6 +73,10 @@ app.post('/users/tokens', async (req, res) => {
 
 app.get('/users/tokens', async (req, res) => {
   res.status(200).json(req['user']);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/index.html'));
 });
 
 app.listen(port, () => console.log(`API is running on port ${port}`));

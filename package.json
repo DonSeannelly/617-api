@@ -7,7 +7,8 @@
     "start": "node_modules/.bin/gulp start",
     "build": "node_modules/.bin/gulp tsc",
     "doc": "node_modules/.bin/gulp typedoc",
-    "test": "npm run build && node_modules/.bin/jest ./dist"
+    "test": "npm run build && node_modules/.bin/jest ./dist",
+    "heroku-postbuild": "git submodule init && git submodule update && cd client_app && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,8 @@
     "express-jwt": "^5.3.1",
     "graphql": "^0.13.1",
     "mongodb": "^3.0.7",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",

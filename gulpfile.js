@@ -26,13 +26,18 @@ gulp.task('assets', function() {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('start', ['watch', 'assets'], function () {
+gulp.task('start', ['watch', 'assets', 'build:client'], function () {
   nodemon({
     script: 'dist/app.js'
   , ext: 'js html'
   , watch: ['./dist']
   })
 });
+
+gulp.task('build:client', () => {
+  return gulp.src('client_app/build/**')
+  .pipe(gulp.dest('dist/client'));
+})
 
 gulp.task('run:datastore', shell.task('npm run json:server'));
 
