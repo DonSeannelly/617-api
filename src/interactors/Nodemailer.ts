@@ -12,7 +12,7 @@ export async function sendInvite(email,url){
     from: 'mailertest343@gmail.com',
     to: email,
     subject: 'Adding New user',
-    text: 'Adding new user!'
+    text: url
   };
   
   transporter.sendMail(mailOptions, function(error, info){
