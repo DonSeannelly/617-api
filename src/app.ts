@@ -12,6 +12,7 @@ import { Response, Request } from "express";
 import { enforceTokenAccess } from "./drivers/jwt";
 import { login, register } from "./interactors/AuthenticationInteractor";
 import { ResponseFactory } from "./drivers/ResponseFactory";
+import RouteResponder from "./drivers/RouteResponder";
 
 // =====================================================================
 //                               Config
@@ -70,6 +71,10 @@ app.post('/users/tokens', async (req, res) => {
     req.body.password
   );
 });
+
+app.delete('/users/tokens', async (req, res) => {
+  new RouteResponder(res).removeCookie('presence').status(200).send();
+})
 
 app.get('/users/tokens', async (req, res) => {
   res.status(200).json(req['user']);
