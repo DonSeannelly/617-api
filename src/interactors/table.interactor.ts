@@ -1,6 +1,7 @@
 import { DataStore } from "../interfaces/DataStore";
 import { getUser, constructUser } from "./user.interactor";
 import { getByte } from "./byte.interactor";
+import {sendInvite}  from "./Nodemailer";
 
 export async function createTable(dataStore: DataStore, name: string, hostId: string) {
   const id = await dataStore.createTable(name, hostId);
@@ -19,6 +20,8 @@ export async function getTable(dataStore: DataStore, id: string) {
 export async function inviteUserToTable(dataStore: DataStore, tableId: string, email: string) {
   await dataStore.inviteUserToTable(tableId, email);
   const invitee = await dataStore.getUserByEmail(email);
+  const url="http://google.com";
+  sendInvite(email,url);
   return constructUser(invitee);
 }
 
