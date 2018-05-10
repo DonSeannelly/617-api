@@ -11,7 +11,7 @@ export const enforceTokenAccess = jwt({
     return req.cookies.presence;
   }
 }).unless({
-  path: ['/', /\/static*/, /\/auth*/, '/users', { url: '/users/tokens', methods: ['POST'] }],
+  path: ['/', /\/static*/, /\/auth*/, '/home', /\/byte*/, /\/table*/, '/users', { url: '/users/tokens', methods: ['POST'] }],
 })
 
 
