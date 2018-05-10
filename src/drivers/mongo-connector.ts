@@ -130,10 +130,9 @@ export class MongoConnector implements DataStore {
   }
   async createTable(name: string, hostId: string): Promise<string> {
     try {
-      const doc = { _id: (new ObjectID).toString(), name, hostId }
+      const doc = { _id: (new ObjectID).toString(), name, hostId, members: [hostId] }
       const result = await this.db.collection("tables").insertOne(doc);
       
-      // TODO: Check for success before resolve
       const id = result.ops[0]['_id'];
       return Promise.resolve(id);
     } catch(e) {
