@@ -8,6 +8,7 @@
     "build": "node_modules/.bin/gulp tsc",
     "doc": "node_modules/.bin/gulp typedoc",
     "test": "npm run build && node_modules/.bin/jest ./dist",
+    "test-coverage": "npm run build && node_modules/.bin/jest ./dist --coverage",
     "heroku-postbuild": "cd client_app && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
@@ -62,7 +63,7 @@
     "transform": {
       "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "(dist)/.*/.*(test).(ts|tsx|js)$",
+    "testRegex": "(dist)/.*/.*(spec).(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",

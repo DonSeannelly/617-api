@@ -2,11 +2,34 @@ import { DataStore } from "../interfaces/DataStore";
 
 export class MockDataStore implements DataStore {
 
-
-  getTable(id: string): Promise<{ hostId: string; members: any; invitations: any; bytes: string[]; }> {
+  addUser(firstname: string, lastname: string, email: string, password: string): Promise<{ firstname: string; lastname: string; email: string; id: string; }> {
     throw new Error("Method not implemented.");
   }
-  verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; }> {
+  getTable(id: string): Promise<{ _id: string; hostId: string; members: any; invitations: any; bytes: string[]; }> {
+    throw new Error("Method not implemented.");
+  }
+  uninviteUserToTable(tableId: string, email: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
+  verifyUser(email: string, password: string): Promise<{ authenticated: boolean; firstname: string; lastname: string; email: string; id: string; }> {
+    throw new Error("Method not implemented.");
+  }
+  completeByte(byteId: string, userId: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
+  getTablesByUser(userId: string) {
+    throw new Error("Method not implemented.");
+  }
+  getInvitedTables(id: string) {
+    throw new Error("Method not implemented.");
+  }
+  addByteToTable(tableId: string, byteId: string) {
+    throw new Error("Method not implemented.");
+  }
+  removeByteFromTable(tableId: string, byteId: string) {
+    throw new Error("Method not implemented.");
+  }
+  removeUserFromTable(tableId: string, userId: string) {
     throw new Error("Method not implemented.");
   }
   createTable(name: string, hostId: string): Promise<string> {
@@ -16,7 +39,7 @@ export class MockDataStore implements DataStore {
     throw new Error("Method not implemented.");
   }
   getUserByEmail(email: string) {
-    throw new Error("Method not implemented.");
+    return this.users[0];
   }
   inviteUserToTable(tableId: string, email: string): Promise<void> {
     throw new Error("Method not implemented.");
@@ -28,15 +51,9 @@ export class MockDataStore implements DataStore {
     throw new Error("Method not implemented.");
   }
   getUserByID(id: string) {
-    return {
-      "_id": "1",
-      "firstname": "John",
-      "lastname": "Doe"
-    }
+    return this.users[0];
   }
-  addUser(name: string) {
-    throw new Error("Method not implemented.");
-  }
+
   updateUser(id: string, name: string) {
     throw new Error("Method not implemented.");
   }
@@ -44,7 +61,20 @@ export class MockDataStore implements DataStore {
     throw new Error("Method not implemented.");
   }
   getByte(id: string) {
-    return {
+    switch(id) {
+      case '1':
+        return this.bytes[0];
+      default:
+        return null;
+    }
+    
+  }
+  getBytes() {
+    return this.bytes;
+  }
+
+  bytes = [
+    {
       "id": "1",
       "name": "JohnDoeByte",
       "description": "Learn how to John Doe.",
@@ -137,8 +167,13 @@ export class MockDataStore implements DataStore {
         }
       ]
     }
-  }
-  getBytes() {
-    throw new Error("Method not implemented.");
-  }
+  ]
+  users = [
+    {
+      _id: "1209837498012",
+      firstname: "Test",
+      lastname: "User",
+      email: "test@email.com"
+    }
+  ]
 }
